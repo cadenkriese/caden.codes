@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Caden Kriese</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <canvas></canvas>
+        <main>
+            <h1 id="greeting" class="greeting">Hello.</h1>
+            <h1>About</h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            </p>
+            <h1>Writings</h1>
+            <ul>
+                <li><a href="/blog/post">Blog post title</a></li>
+                <li><a href="/blog/post">Blog post title</a></li>
+                <li><a href="/blog/post">Blog post title</a></li>
+                <li><a href="/blog/post">Blog post title</a></li>
+            </ul>
+        </main>
+        <footer>
+            <ul>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="https://github.com/cadenkriese">GitHub</a></li>
+                <li><a href="https://linkedin.com/in/caden-kriese">LinkedIn</a></li>
+                <li><a href="/resume">Résumé</a></li>
+            </ul>
+        </footer>
+
+        <script>
+                function getGreeting() {
+                    const hour = new Date().getHours();
+
+                    if (hour < 12) {
+                        return "Good morning.";
+                    } else if (hour < 18) {
+                        return "Good afternoon.";
+                    } else {
+                        return "Good evening.";
+                    }
+                }
+
+                function updateGreeting() {
+                    const greeting = document.getElementById("greeting");
+                    const newGreeting = getGreeting();
+                    if (greeting.textContent !== newGreeting) {
+                        greeting.textContent = newGreeting;
+                    }
+                }
+
+                // Initialize greeting
+                updateGreeting();
+
+                // Check every minute in case time period changes
+                setInterval(updateGreeting, 60 * 1000);
+            </script>
+    </body>
+</html>
