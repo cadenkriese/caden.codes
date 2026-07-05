@@ -1,0 +1,18 @@
+<article class="row post-row">
+  <div class="row-meta">
+    {% if post.date %}<time datetime="{{ post.date }}">{{ post.date | date(format="%b %-d, %Y") }}</time>{% endif %}
+    {% if post.reading_time %}<span>{{ post.reading_time }} min read</span>{% endif %}
+  </div>
+  <div>
+    <a class="row-title" href="{{ post.permalink }}">{{ post.title }}</a>
+    {% if post.description %}<p class="row-detail">{{ post.description }}</p>{% endif %}
+    {% if post.taxonomies.tags %}
+      <div class="tags">
+        {% for tag in post.taxonomies.tags %}
+          <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <a class="row-arrow" href="{{ post.permalink }}" aria-label="Read {{ post.title }}">→</a>
+</article>

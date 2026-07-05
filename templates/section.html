@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container page-head">
+  <a class="text-link back-link" href="{{ get_url(path='/') }}">Back home</a>
+  <h1 class="article-title">{{ section.title }}</h1>
+  {% if section.taxonomies.tags %}
+    <div class="tags">
+      {% for tag in section.taxonomies.tags %}
+        <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+<section class="container">
+  <div class="row-list">
+    {% for post in section.pages %}
+      {% include "partials/post-row.html" %}
+    {% endfor %}
+  </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container page-head">
+  <a class="text-link back-link" href="{{ get_url(path='tags') }}">All tags</a>
+  <h1 class="article-title">{{ term.name }}</h1>
+</section>
+<section class="container">
+  <div class="row-list">
+    {% for post in term.pages %}
+      {% include "partials/post-row.html" %}
+    {% endfor %}
+  </div>
+</section>
+{% endblock content %}

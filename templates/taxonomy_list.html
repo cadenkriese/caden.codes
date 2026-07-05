@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container page-head">
+  <a class="text-link back-link" href="{{ get_url(path='/') }}">Back home</a>
+  <h1 class="article-title">Tags</h1>
+  <div class="tags">
+    {% for term in terms %}
+      <a class="tag" href="{{ term.permalink }}">{{ term.name }}</a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock content %}

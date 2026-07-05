@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="{{ lang | default(value=config.default_language) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121116" media="(prefers-color-scheme: dark)">
+  <title>{% block title %}{% if page %}{{ page.title }} - {% elif section and section.title %}{{ section.title }} - {% endif %}{{ config.title }}{% endblock title %}</title>
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
+  <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}">
+  <link rel="icon" href="{{ get_url(path='images/favicon.png') }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ config.title }} RSS feed" href="{{ get_url(path='rss.xml') }}">
+  <link rel="stylesheet" href="{{ get_url(path='css/site.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="{{ get_url(path='/') }}">{{ config.title }}</a>
+      <nav class="social-nav" aria-label="Profile links">
+        <a href="{{ config.extra.github_url }}" aria-label="GitHub"><img src="{{ get_url(path='images/github.svg') }}" alt=""></a>
+        <a href="{{ config.extra.linkedin_url }}" aria-label="LinkedIn"><img src="{{ get_url(path='images/linkedin.svg') }}" alt=""></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock content %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <nav class="footer-nav" aria-label="Footer links">
+        <a href="{{ config.extra.github_url }}">GitHub</a>
+        <a href="{{ config.extra.linkedin_url }}">LinkedIn</a>
+        <a href="{{ get_url(path='rss.xml') }}">RSS</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

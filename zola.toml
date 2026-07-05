@@ -1,0 +1,18 @@
+base_url = "https://caden.codes"
+title = "Caden Kriese"
+description = "Caden Kriese's personal website."
+default_language = "en"
+compile_sass = false
+build_search_index = true
+generate_feeds = true
+feed_filenames = ["rss.xml"]
+
+taxonomies = [
+  { name = "tags", feed = true },
+]
+
+[markdown]
+
+[extra]
+github_url = "https://github.com/cadenkriese"
+linkedin_url = "https://www.linkedin.com/in/caden-kriese/"

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ config.title }}{% endblock title %}
+{% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
+
+{% block content %}
+<article class="container page-head">
+  {% if page.ancestors | length > 1 %}
+    {% set parent = get_section(path=page.ancestors | last) %}
+    <a class="text-link back-link" href="{{ parent.permalink }}">Back to {{ parent.title | lower }}</a>
+  {% else %}
+    <a class="text-link back-link" href="{{ get_url(path='/') }}">Back home</a>
+  {% endif %}
+
+  {% if page.date %}
+    <p class="meta-line">{{ page.date | date(format="%b %-d, %Y") }}{% if page.reading_time %} / {{ page.reading_time }} min read{% endif %}</p>
+  {% endif %}
+  <h1 class="article-title">{{ page.title }}</h1>
+  {% if page.description %}
+    <p class="lede">{{ page.description }}</p>
+  {% endif %}
+  {% if page.taxonomies.tags %}
+    <div class="tags">
+      {% for tag in page.taxonomies.tags %}
+        <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</article>
+
+<article class="container prose">
+  {{ page.content | safe }}
+</article>
+
+{% if page.lower or page.higher %}
+  <section class="container section">
+    <div class="row-list">
+      {% if page.lower %}
+        {% set post = page.lower %}
+        {% include "partials/post-row.html" %}
+      {% elif page.higher %}
+        {% set post = page.higher %}
+        {% include "partials/post-row.html" %}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+{% endblock content %}

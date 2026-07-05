@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% set blog = get_section(path="blog/_index.md") %}
+
+<section class="container hero">
+  <h1 class="page-title">Caden Kriese</h1>
+  <p class="hero-tagline">Software engineer at the intersection of design and technology.</p>
+  <p class="lede">
+    I study engineering physics at the <a href="https://physics.mines.edu">Colorado School of Mines</a> and work on computer graphics, especially for Apple platforms.
+  </p>
+  <nav class="jump-links" aria-label="Homepage sections">
+    <a href="#writing">✍🏻 Writing</a>
+    <a href="#projects">👨🏻‍💻 Projects</a>
+  </nav>
+</section>
+
+<section id="projects" class="container section">
+  <h2 class="section-title">Projects</h2>
+  <div class="row-list">
+    <a class="row proposal" href="https://gravitation.app">
+      <span class="row-meta">iPhone App</span>
+      <span class="row-title">Gravitation</span>
+      <span class="row-arrow">→</span>
+    </a>
+    <a class="row proposal" href="https://csmajors.app">
+      <span class="row-meta">iPhone App</span>
+      <span class="row-title">Majors</span>
+      <span class="row-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<section id="writing" class="container section">
+  <div class="section-heading">
+    <h2 class="section-title">Writing</h2>
+    <a class="text-link" href="{{ blog.permalink }}">All writing</a>
+  </div>
+  <div class="row-list">
+    {% for post in blog.pages %}
+      {% include "partials/post-row.html" %}
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock content %}
