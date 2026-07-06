@@ -10,10 +10,39 @@
     --soft: light-dark(#f0edf3, #211e28);
     --accent: light-dark(#3e7ac4, #7aadff);
     --accent-quiet: light-dark(#316593, #a1adf3);
+    --spring-easing: linear(0, 0.005, 0.02 2.2%, 0.081 4.9%, 0.465 16.3%, 0.56, 0.641, 0.712 25.9%, 0.772 29.3%, 0.824, 0.867 36.6%, 0.905 41%, 0.934 45.9%, 0.957 51.3%, 0.974 57.6%, 0.986 64.6%, 0.993 73.3%, 0.999);
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --font-serif: "New York", ui-serif, Georgia, "Times New Roman", serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   }
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(root) {
+  animation-duration: 5s;
+  animation-timing-function: var(--spring-easing);
+}
+
+::view-transition-group(*) {
+  animation-duration: 5s;
+  animation-timing-function: var(--spring-easing);
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  height: 100%;
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 1ms;
+  }
+}
 
 * { box-sizing: border-box; }
 html { background: var(--bg); scroll-behavior: smooth; }
@@ -241,6 +270,7 @@ footer a:hover {
 
 .row-meta,
 .meta-line {
+  width: fit-content;
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: .76rem;

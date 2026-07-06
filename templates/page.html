@@ -4,7 +4,7 @@
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
 {% block content %}
-<article class="container page-head">
+<article class="container page-head" style="view-transition-name: post-{{ page.slug }};">
   {% if page.ancestors | length > 1 %}
     {% set parent = get_section(path=page.ancestors | last) %}
     <a class="text-link back-link" href="{{ parent.permalink }}">Back to {{ parent.title | lower }}</a>
@@ -13,11 +13,11 @@
   {% endif %}
 
   {% if page.date %}
-    <p class="meta-line">{{ page.date | date(format="%b %-d, %Y") }}{% if page.reading_time %} / {{ page.reading_time }} min read{% endif %}</p>
+    <p class="meta-line" style="view-transition-name: post-meta-{{ page.slug }};">{{ page.date | date(format="%b %-d, %Y") }}{% if page.reading_time %} / {{ page.reading_time }} min read{% endif %}</p>
   {% endif %}
-  <h1 class="article-title">{{ page.title }}</h1>
+  <h1 class="article-title" style="view-transition-name: post-title-{{ page.slug }};">{{ page.title }}</h1>
   {% if page.description %}
-    <p class="lede">{{ page.description }}</p>
+    <p class="lede" style="view-transition-name: post-description-{{ page.slug }};">{{ page.description }}</p>
   {% endif %}
   {% if page.taxonomies.tags %}
     <div class="tags">
@@ -37,9 +37,11 @@
     <div class="row-list">
       {% if page.lower %}
         {% set post = page.lower %}
+        {% set post_transition = false %}
         {% include "partials/post-row.html" %}
       {% elif page.higher %}
         {% set post = page.higher %}
+        {% set post_transition = false %}
         {% include "partials/post-row.html" %}
       {% endif %}
     </div>
