@@ -213,7 +213,6 @@ footer a:hover {
 }
 
 .text-link,
-.jump-links a,
 .prose a {
   color: var(--accent-quiet);
   text-decoration: underline;
@@ -222,7 +221,6 @@ footer a:hover {
 }
 
 .text-link:hover,
-.jump-links a:hover,
 .prose a:hover {
   color: var(--accent);
   text-decoration-color: var(--accent);
@@ -230,6 +228,26 @@ footer a:hover {
 
 .jump-links {
   margin-top: 2rem;
+}
+
+.jump-links a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .32rem;
+  color: var(--muted);
+  font-size: .98rem;
+  line-height: 1.45;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  transition: color .16s, text-decoration-color .16s;
+}
+
+.jump-links a:hover,
+.jump-links a:focus-visible {
+  color: var(--accent-quiet);
+  text-decoration-color: color-mix(in srgb, var(--accent) 62%, transparent);
 }
 
 .section,
