@@ -308,6 +308,7 @@ footer a:hover {
   font-size: 1.18rem;
   line-height: 1.25;
   text-decoration: none;
+  transition: color .16s, transform .16s;
 }
 
 .row-detail {
@@ -323,11 +324,15 @@ footer a:hover {
 }
 
 .row:hover .row-title,
-.row-title:hover {
+.row:focus-within .row-title,
+.row-title:hover,
+.row-title:focus-visible {
   color: var(--accent-quiet);
+  transform: translateX(2px);
 }
 
-.row:hover .row-arrow {
+.row:hover .row-arrow,
+.row:focus-within .row-arrow {
   color: var(--accent);
   transform: translateX(3px);
 }
