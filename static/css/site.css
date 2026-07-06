@@ -21,12 +21,12 @@
 }
 
 ::view-transition-group(root) {
-  animation-duration: 5s;
+  animation-duration: 0.45s;
   animation-timing-function: var(--spring-easing);
 }
 
 ::view-transition-group(*) {
-  animation-duration: 5s;
+  animation-duration: 0.45s;
   animation-timing-function: var(--spring-easing);
 }
 
@@ -187,6 +187,7 @@ footer a:hover {
 }
 
 .article-title {
+  width: fit-content;
   margin-top: 1.25rem;
   font-size: clamp(4.25rem, 10vw, 5rem);
   line-height: .92;
@@ -282,6 +283,8 @@ footer a:hover {
 }
 
 .row-title {
+  width: fit-content;
+  display: inline-block;
   color: var(--text);
   font-weight: 700;
   font-size: 1.18rem;

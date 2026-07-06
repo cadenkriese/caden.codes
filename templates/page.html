@@ -20,7 +20,7 @@
     <p class="lede" style="view-transition-name: post-description-{{ page.slug }};">{{ page.description }}</p>
   {% endif %}
   {% if page.taxonomies.tags %}
-    <div class="tags">
+    <div class="tags" style="view-transition-name: post-tags-{{ page.slug }};">
       {% for tag in page.taxonomies.tags %}
         <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>
       {% endfor %}

@@ -8,7 +8,7 @@
     <a class="row-title" href="{{ post.permalink }}"{% if has_post_transition %} style="view-transition-name: post-title-{{ post.slug }};"{% endif %}>{{ post.title }}</a>
     {% if post.description %}<p class="row-detail"{% if has_post_transition %} style="view-transition-name: post-description-{{ post.slug }};"{% endif %}>{{ post.description }}</p>{% endif %}
     {% if post.taxonomies.tags %}
-      <div class="tags">
+      <div class="tags"{% if has_post_transition %} style="view-transition-name: post-tags-{{ post.slug }};"{% endif %}>
         {% for tag in post.taxonomies.tags %}
           <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>
         {% endfor %}
