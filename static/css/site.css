@@ -278,6 +278,7 @@ footer a:hover {
 }
 
 .row {
+  position: relative;
   display: grid;
   grid-template-columns: 8.5rem minmax(0, 1fr) auto;
   gap: .25rem 1.5rem;
@@ -285,6 +286,22 @@ footer a:hover {
   padding-block: 1.25rem;
   border-top: 1px solid var(--line);
   text-decoration: none;
+}
+
+.row-hitbox {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.row > :not(.row-hitbox) {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.row .tags a {
+  pointer-events: auto;
 }
 
 .row-meta,
@@ -325,8 +342,7 @@ footer a:hover {
 
 .row:hover .row-title,
 .row:focus-within .row-title,
-.row-title:hover,
-.row-title:focus-visible {
+.row-hitbox:focus-visible ~ * .row-title {
   color: var(--accent-quiet);
   transform: translateX(2px);
 }

@@ -1,11 +1,12 @@
 {% set has_post_transition = post_transition | default(value=true) %}
 <article class="row post-row"{% if has_post_transition %} style="view-transition-name: post-{{ post.slug }};"{% endif %}>
+  <a class="row-hitbox" href="{{ post.permalink }}" aria-label="Read {{ post.title }}"></a>
   <div class="row-meta"{% if has_post_transition %} style="view-transition-name: post-meta-{{ post.slug }};"{% endif %}>
     {% if post.date %}<time datetime="{{ post.date }}">{{ post.date | date(format="%b %-d, %Y") }}</time>{% endif %}
     {% if post.reading_time %}<span>{{ post.reading_time }} min read</span>{% endif %}
   </div>
   <div>
-    <a class="row-title" href="{{ post.permalink }}"{% if has_post_transition %} style="view-transition-name: post-title-{{ post.slug }};"{% endif %}>{{ post.title }}</a>
+    <span class="row-title"{% if has_post_transition %} style="view-transition-name: post-title-{{ post.slug }};"{% endif %}>{{ post.title }}</span>
     {% if post.description %}<p class="row-detail"{% if has_post_transition %} style="view-transition-name: post-description-{{ post.slug }};"{% endif %}>{{ post.description }}</p>{% endif %}
     {% if post.taxonomies.tags %}
       <div class="tags"{% if has_post_transition %} style="view-transition-name: post-tags-{{ post.slug }};"{% endif %}>
@@ -15,5 +16,5 @@
       </div>
     {% endif %}
   </div>
-  <a class="row-arrow" href="{{ post.permalink }}" aria-label="Read {{ post.title }}">→</a>
+  <span class="row-arrow" aria-hidden="true">→</span>
 </article>
