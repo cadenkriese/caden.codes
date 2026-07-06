@@ -274,7 +274,9 @@ footer a:hover {
 
 .row-list {
   margin-top: 2rem;
+  padding: 0;
   border-bottom: 1px solid var(--line);
+  list-style: none;
 }
 
 .row {

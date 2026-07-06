@@ -36,11 +36,11 @@
     <h2 class="section-title">Writing</h2>
     <a class="text-link" href="{{ blog.permalink }}">All writing</a>
   </div>
-  <div class="row-list">
+  <ul class="row-list">
     {% for post in blog.pages %}
       {% include "partials/post-row.html" %}
     {% endfor %}
-  </div>
+  </ul>
 </section>
 
 {% endblock content %}

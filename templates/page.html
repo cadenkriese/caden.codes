@@ -34,7 +34,7 @@
 
 {% if page.lower or page.higher %}
   <section class="container section">
-    <div class="row-list">
+    <ul class="row-list">
       {% if page.lower %}
         {% set post = page.lower %}
         {% set post_transition = false %}
@@ -44,7 +44,7 @@
         {% set post_transition = false %}
         {% include "partials/post-row.html" %}
       {% endif %}
-    </div>
+    </ul>
   </section>
 {% endif %}
 {% endblock content %}

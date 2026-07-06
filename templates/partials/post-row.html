@@ -1,5 +1,5 @@
 {% set has_post_transition = post_transition | default(value=true) %}
-<article class="row post-row"{% if has_post_transition %} style="view-transition-name: post-{{ post.slug }};"{% endif %}>
+<li class="row post-row"{% if has_post_transition %} style="view-transition-name: post-{{ post.slug }};"{% endif %}>
   <a class="row-hitbox" href="{{ post.permalink }}" aria-label="Read {{ post.title }}"></a>
   <div class="row-meta"{% if has_post_transition %} style="view-transition-name: post-meta-{{ post.slug }};"{% endif %}>
     {% if post.date %}<time datetime="{{ post.date }}">{{ post.date | date(format="%b %-d, %Y") }}</time>{% endif %}
@@ -17,4 +17,4 @@
     {% endif %}
   </div>
   <span class="row-arrow" aria-hidden="true">→</span>
-</article>
+</li>

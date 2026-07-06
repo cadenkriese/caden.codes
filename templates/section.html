@@ -14,10 +14,10 @@
 </section>
 
 <section class="container">
-  <div class="row-list">
+  <ul class="row-list">
     {% for post in section.pages %}
       {% include "partials/post-row.html" %}
     {% endfor %}
-  </div>
+  </ul>
 </section>
 {% endblock content %}

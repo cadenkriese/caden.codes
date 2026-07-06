@@ -6,10 +6,10 @@
   <h1 class="article-title">{{ term.name }}</h1>
 </section>
 <section class="container">
-  <div class="row-list">
+  <ul class="row-list">
     {% for post in term.pages %}
       {% include "partials/post-row.html" %}
     {% endfor %}
-  </div>
+  </ul>
 </section>
 {% endblock content %}
