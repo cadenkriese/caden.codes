@@ -383,6 +383,7 @@ footer a:hover {
   padding-bottom: 4.25rem;
   font-size: 1.125rem;
   line-height: 1.78;
+  text-wrap: pretty;
 }
 
 .prose h2,
@@ -393,6 +394,7 @@ footer a:hover {
 
 .prose p {
   margin: 0 0 1.5rem;
+  margin-bottom: 1lh;
 }
 
 .prose code {
