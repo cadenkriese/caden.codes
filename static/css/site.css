@@ -1,20 +1,20 @@
 :root {
-    color-scheme: light dark;
-    --bg: light-dark(#f7f8fa, #121116);
-    --paper: light-dark(#fff, #19171f);
-    --text: light-dark(#18161d, #f4eff4);
-    --muted: light-dark(#66616d, #aaa2ad);
-    --faint: light-dark(#9a94a3, #7d7485);
-    --line: light-dark(#e5e1e8, #2f2a36);
-    --line-strong: light-dark(#cac2d0, #4a4253);
-    --soft: light-dark(#f0edf3, #211e28);
-    --accent: light-dark(#3e7ac4, #7aadff);
-    --accent-quiet: light-dark(#316593, #a1adf3);
-    --spring-easing: linear(0, 0.005, 0.02 2.2%, 0.081 4.9%, 0.465 16.3%, 0.56, 0.641, 0.712 25.9%, 0.772 29.3%, 0.824, 0.867 36.6%, 0.905 41%, 0.934 45.9%, 0.957 51.3%, 0.974 57.6%, 0.986 64.6%, 0.993 73.3%, 0.999);
-    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --font-serif: "New York", ui-serif, Georgia, "Times New Roman", serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
+  color-scheme: light dark;
+  --bg: light-dark(#f7f8fa, #121116);
+  --paper: light-dark(#fff, #19171f);
+  --text: light-dark(#18161d, #f4eff4);
+  --muted: light-dark(#66616d, #aaa2ad);
+  --faint: light-dark(#9a94a3, #7d7485);
+  --line: light-dark(#e5e1e8, #2f2a36);
+  --line-strong: light-dark(#cac2d0, #4a4253);
+  --soft: light-dark(#f0edf3, #211e28);
+  --accent: light-dark(#3e7ac4, #7aadff);
+  --accent-quiet: light-dark(#316593, #a1adf3);
+  --spring-easing: linear(0, 0.005, 0.02 2.2%, 0.081 4.9%, 0.465 16.3%, 0.56, 0.641, 0.712 25.9%, 0.772 29.3%, 0.824, 0.867 36.6%, 0.905 41%, 0.934 45.9%, 0.957 51.3%, 0.974 57.6%, 0.986 64.6%, 0.993 73.3%, 0.999);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "New York", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
 
 @view-transition {
   navigation: auto;
@@ -66,7 +66,7 @@ section[id] { scroll-margin-top: 5rem; }
   border-bottom: 1px solid var(--line);
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(18px);
-
+  
   .header-inner {
     min-height: 4rem;
     display: flex;
@@ -74,18 +74,18 @@ section[id] { scroll-margin-top: 5rem; }
     justify-content: space-between;
     gap: 1.25rem;
   }
-
+  
   .wordmark {
     font-weight: 700;
     text-decoration: none;
   }
-
+  
   .social-nav {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: .65rem 1rem;
-
+    
     a {
       min-width: 1.45rem;
       height: 1.45rem;
@@ -94,16 +94,23 @@ section[id] { scroll-margin-top: 5rem; }
       color: var(--muted);
       font-size: .9rem;
       text-decoration: none;
-
+      transition: color .16s, transform .16s;
+      
       &:hover {
+        transform: translateY(-1.5px);
         color: var(--text);
+        
+        img {
+          opacity: 1;
+        }
       }
     }
-
+    
     img {
       width: 1.05rem;
       height: 1.05rem;
       opacity: .75;
+      transition: opacity .16s;
     }
   }
 }
@@ -224,7 +231,7 @@ body:has(.hero) .wordmark {
 
 .jump-links {
   margin-top: 2rem;
-
+  
   a {
     display: inline-flex;
     align-items: baseline;
@@ -237,7 +244,7 @@ body:has(.hero) .wordmark {
     text-decoration-thickness: 1px;
     text-underline-offset: .2em;
     transition: color .16s, text-decoration-color .16s;
-
+    
     &:hover,
     &:focus-visible {
       color: var(--accent-quiet);
@@ -284,34 +291,34 @@ body:has(.hero) .wordmark {
   padding-block: 1.25rem;
   border-top: 1px solid var(--line);
   text-decoration: none;
-
+  
   .row-hitbox {
     position: absolute;
     inset: 0;
     z-index: 1;
-
+    
     &:focus-visible ~ * .row-title {
       color: var(--accent-quiet);
       transform: translateX(2px);
     }
   }
-
+  
   > :not(.row-hitbox) {
     position: relative;
     z-index: 2;
     pointer-events: none;
   }
-
+  
   .tags a {
     pointer-events: auto;
   }
-
+  
   .row-meta {
     span {
       display: block;
     }
   }
-
+  
   .row-title {
     width: fit-content;
     display: inline-block;
@@ -322,28 +329,23 @@ body:has(.hero) .wordmark {
     text-decoration: none;
     transition: color .16s, transform .16s;
   }
-
+  
   .row-detail {
     margin: .5rem 0 0;
     color: var(--muted);
     line-height: 1.7;
   }
-
+  
   .row-arrow {
     color: var(--faint);
     text-decoration: none;
     transition: color .16s, transform .16s;
   }
-
+  
   &:hover,
   &:focus-within {
-    .row-title {
+    .row-title, .row-arrow {
       color: var(--accent-quiet);
-      transform: translateX(2px);
-    }
-
-    .row-arrow {
-      color: var(--accent);
       transform: translateX(3px);
     }
   }
@@ -374,7 +376,7 @@ body:has(.hero) .wordmark {
   font-size: .68rem;
   line-height: 1;
   text-decoration: none;
-
+  
   &:hover {
     border-color: var(--line-strong);
     background: var(--soft);
@@ -387,18 +389,18 @@ body:has(.hero) .wordmark {
   font-size: 1.125rem;
   line-height: 1.78;
   text-wrap: pretty;
-
+  
   h2,
   h3 {
     margin: 3.5rem 0 1.75rem;
     line-height: 1.25;
   }
-
+  
   p {
     margin: 0 0 1.5rem;
     margin-bottom: 1lh;
   }
-
+  
   code {
     padding: .1rem .32rem;
     border: 1px solid var(--line);
@@ -407,7 +409,7 @@ body:has(.hero) .wordmark {
     font-family: var(--font-mono);
     font-size: .9em;
   }
-
+  
   pre {
     overflow-x: auto;
     margin: 2rem 0;
@@ -415,14 +417,14 @@ body:has(.hero) .wordmark {
     border: 1px solid var(--line);
     border-radius: 10px;
     background: var(--paper);
-
+    
     code {
       padding: 0;
       border: 0;
       background: transparent;
     }
   }
-
+  
   img {
     border: 1px solid var(--line);
     border-radius: 8px;
@@ -431,7 +433,7 @@ body:has(.hero) .wordmark {
 
 footer {
   color: var(--muted);
-
+  
   ul {
     min-height: 4rem;
     width: min(760px, calc(100% - 40px));
@@ -444,11 +446,11 @@ footer {
     gap: .65rem 4rem;
     list-style: none;
   }
-
+  
   a {
     color: var(--muted);
     text-decoration: none;
-
+    
     &:hover {
       color: var(--text);
     }
