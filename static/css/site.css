@@ -221,6 +221,7 @@ body:has(.hero) .wordmark {
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--accent-quiet) 25%, transparent);
   text-underline-offset: .18em;
+  transition: color .16s, text-decoration-color .16s;
 }
 
 .text-link:hover,
