@@ -1,9 +1,9 @@
 +++
-title = "Example Post"
-date = 2024-01-15T09:00:00
-description = "A generic example article for testing blog layouts."
+title = "Simulating a Black Hole in Real Time on an iPhone"
+date = 2026-07-08T14:00:00
+description = ""
 [taxonomies]
-tags = ["Example", "Writing"]
+tags = ["Programming"]
 +++
 
 This is a generic example post. It provides sample content that can be used to test typography, spacing, previews, and archive pages without relying on project-specific writing.
