@@ -38,7 +38,8 @@
 {% endif %}
 
 {% if page.lower or page.higher %}
-  <section class="container section">
+  <section class="container section related-posts">
+    <h3 class="section-title section-title-small">Recent Posts</h3>
     <ul class="row-list">
       {% if page.lower %}
         {% set post = page.lower %}
