@@ -263,6 +263,41 @@ body:has(.hero) .wordmark {
   padding-bottom: 2rem;
 }
 
+.post-head {
+  padding-bottom: 3rem;
+}
+
+.article-layout {
+  --article-rail-offset: 5rem;
+  width: min(1040px, calc(100% - 40px));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: .25rem 1.5rem;
+  align-items: start;
+}
+
+.post-body {
+  padding-top: 2rem;
+}
+
+.article-meta {
+  margin: .15rem 0 0;
+  
+  span {
+    display: block;
+  }
+}
+
+.article-footer {
+  padding-bottom: 4.25rem;
+}
+
+.article-footer .tags {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
 .section-heading {
   display: flex;
   align-items: end;
@@ -386,15 +421,26 @@ body:has(.hero) .wordmark {
 }
 
 .prose {
-  padding-bottom: 4.25rem;
+  --measure: 36rem;
   font-size: 1.125rem;
   line-height: 1.78;
   text-wrap: pretty;
   margin-trim: block-end;
   
+  > :not(figure):not(img):not(pre),
+  > p:not(:has(> img:only-child)) {
+    max-width: var(--measure);
+  }
+  
+  > p:has(> img:only-child) {
+    max-width: none;
+    width: 100vw;
+    margin: 3rem calc(50% - 50vw - var(--article-rail-offset));
+  }
+  
   h2,
   h3 {
-    margin: 1.5lh 0 .5lh;
+    margin: 1lh 0 .4lh;
     line-height: 1.25;
   }
   
@@ -413,8 +459,10 @@ body:has(.hero) .wordmark {
   }
   
   pre {
+    width: min(80ch, calc(100vw - 40px));
+    max-width: none;
     overflow-x: auto;
-    margin: 2rem 0;
+    margin: 2rem calc(50% - min(40ch, calc((100vw - 40px) / 2)) - var(--article-rail-offset));
     padding: 1rem 1.5rem;
     border: 1px solid var(--line);
     border-radius: 10px;
@@ -428,8 +476,54 @@ body:has(.hero) .wordmark {
   }
   
   img {
+    display: block;
+    width: 100%;
     border: 1px solid var(--line);
     border-radius: 8px;
+  }
+  
+  figure {
+    width: 100vw;
+    margin: 3rem calc(50% - 50vw - var(--article-rail-offset));
+    
+    img {
+      max-width: none;
+    }
+  }
+  
+  figcaption {
+    max-width: var(--measure);
+    margin: .75rem auto 0;
+    color: var(--muted);
+    font-size: .9rem;
+    line-height: 1.55;
+    text-align: center;
+  }
+}
+
+.essay-prose {
+  --measure: 38rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.22rem, 1.7vw, 1.34rem);
+  line-height: 1.72;
+  
+  > p:first-of-type::first-letter {
+    float: left;
+    margin: .07em .1em 0 0;
+    color: var(--text);
+    font-size: 5.25em;
+    line-height: .78;
+  }
+  
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+  }
+  
+  code,
+  pre {
+    font-family: var(--font-mono);
   }
 }
 
@@ -461,8 +555,17 @@ footer {
 
 @media (max-width: 760px) {
   .container { width: min(100% - 28px, 760px); }
+  .article-layout {
+    --article-rail-offset: 0rem;
+    width: min(100% - 28px, 760px);
+    display: block;
+  }
   .section,
   .page-head { padding-block: 3.25rem; }
+  .post-head { padding-bottom: 2.25rem; }
+  .post-body { padding-top: 1.25rem; }
+  .article-meta { margin: 0 0 1.25rem; }
+  .article-footer { padding-bottom: 3.25rem; }
   footer ul { width: min(100% - 28px, 760px); padding-block: 2rem; flex-direction: column; }
   footer a { min-height: 3rem; display: inline-flex; align-items: center; }
   .row { grid-template-columns: minmax(0, 1fr) auto; gap: .25rem .75rem; }

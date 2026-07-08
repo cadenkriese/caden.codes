@@ -4,33 +4,38 @@
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
 {% block content %}
-<article class="container page-head" style="view-transition-name: post-{{ page.slug }};">
-  {% if page.ancestors | length > 1 %}
-    {% set parent = get_section(path=page.ancestors | last) %}
-    <a class="text-link back-link" href="{{ parent.permalink }}">Back to {{ parent.title | lower }}</a>
-  {% else %}
-    <a class="text-link back-link" href="{{ get_url(path='/') }}">Back home</a>
-  {% endif %}
+{% set content_kind = page.extra.kind | default(value="") %}
+{% set is_essay = page.extra.essay | default(value=false) or content_kind == "essay" %}
 
-  {% if page.date %}
-    <p class="meta-line" style="view-transition-name: post-meta-{{ page.slug }};">{{ page.date | date(format="%b %-d, %Y") }}{% if page.reading_time %} / {{ page.reading_time }} min read{% endif %}</p>
-  {% endif %}
+<article class="container page-head post-head" style="view-transition-name: post-{{ page.slug }};">
   <h1 class="article-title" style="view-transition-name: post-title-{{ page.slug }};">{{ page.title }}</h1>
   {% if page.description %}
     <p class="lede" style="view-transition-name: post-description-{{ page.slug }};">{{ page.description }}</p>
   {% endif %}
-  {% if page.taxonomies.tags %}
+</article>
+
+<article class="article-layout post-body">
+  {% if page.date %}
+    <p class="meta-line article-meta" style="view-transition-name: post-meta-{{ page.slug }};">
+      <span>{{ page.date | date(format="%b %-d, %Y") }}</span>
+      {% if page.reading_time %}<span>{{ page.reading_time }} min read</span>{% endif %}
+    </p>
+  {% endif %}
+  <div class="prose{% if is_essay %} essay-prose{% endif %}">
+    {{ page.content | safe }}
+  </div>
+</article>
+
+{% if page.taxonomies.tags %}
+  <section class="article-layout article-footer" aria-label="Article tags">
+    <div></div>
     <div class="tags" style="view-transition-name: post-tags-{{ page.slug }};">
       {% for tag in page.taxonomies.tags %}
         <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>
       {% endfor %}
     </div>
-  {% endif %}
-</article>
-
-<article class="container prose">
-  {{ page.content | safe }}
-</article>
+  </section>
+{% endif %}
 
 {% if page.lower or page.higher %}
   <section class="container section">
