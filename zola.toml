@@ -13,6 +13,11 @@ taxonomies = [
 
 [markdown]
 
+[markdown.highlighting]
+style = "class"
+light_theme = "github-light"
+dark_theme = "github-dark"
+
 [extra]
 github_url = "https://github.com/cadenkriese"
 linkedin_url = "https://www.linkedin.com/in/caden-kriese/"

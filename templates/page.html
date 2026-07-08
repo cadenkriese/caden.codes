@@ -2,6 +2,16 @@
 
 {% block title %}{{ page.title }} - {{ config.title }}{% endblock title %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
+{% block extra_head %}
+{% set content_kind = page.extra.kind | default(value="") %}
+{% set is_essay = page.extra.essay | default(value=false) or content_kind == "essay" %}
+{% set parent_section = page.ancestors | last %}
+{% if parent_section == "blog/_index.md" and not is_essay %}
+  <style>
+{{ load_data(path="css/syntax-xcode.css") | safe }}
+  </style>
+{% endif %}
+{% endblock extra_head %}
 
 {% block content %}
 {% set content_kind = page.extra.kind | default(value="") %}

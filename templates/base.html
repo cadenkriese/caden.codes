@@ -8,9 +8,10 @@
   <title>{% block title %}{% if page %}{{ page.title }} - {% elif section and section.title %}{{ section.title }} - {% endif %}{{ config.title }}{% endblock title %}</title>
   <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
   <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}">
-  <link rel="icon" href="{{ get_url(path='images/favicon.png') }}">
+  <link rel="icon" href="{{ get_url(path='images/favicon.svg') }}" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="{{ config.title }} RSS feed" href="{{ get_url(path='rss.xml') }}">
   <link rel="stylesheet" href="{{ get_url(path='css/site.css') }}">
+  {% block extra_head %}{% endblock extra_head %}
 </head>
 <body>
   <header class="site-header">
