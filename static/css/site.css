@@ -178,7 +178,7 @@ body:has(.hero) .wordmark {
   margin: 0;
   color: var(--text);
   font-family: var(--font-serif);
-  font-size: clamp(4.25rem, 13vw, 8.25rem);
+  font-size: clamp(4.25rem, 13vw, 7.25rem);
   font-weight: 400;
   line-height: .82;
   letter-spacing: 0;
@@ -209,7 +209,7 @@ body:has(.hero) .wordmark {
 }
 
 .lede {
-  margin: 3.5rem 0 0;
+  margin: 1lh 0 0;
   color: var(--muted);
   font-size: 1.16rem;
   line-height: 1.8;
@@ -390,10 +390,11 @@ body:has(.hero) .wordmark {
   font-size: 1.125rem;
   line-height: 1.78;
   text-wrap: pretty;
+  margin-trim: block-end;
   
   h2,
   h3 {
-    margin: 3.5rem 0 1.75rem;
+    margin: 1.5lh 0 .5lh;
     line-height: 1.25;
   }
   
