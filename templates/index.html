@@ -28,7 +28,7 @@
 <section id="writing" class="container section">
   <div class="section-heading">
     <h2 class="section-title">Writing</h2>
-    <a class="text-link" href="{{ blog.permalink }}">All writing</a>
+    <a class="text-link" href="{{ blog.permalink | replace(from=config.base_url, to='') }}">All writing</a>
   </div>
   <ul class="row-list">
     {% for post in blog.pages %}

@@ -1,6 +1,6 @@
 {% set has_post_transition = post_transition | default(value=true) %}
 <li class="row post-row"{% if has_post_transition %} style="view-transition-name: post-{{ post.slug }};"{% endif %}>
-  <a class="row-hitbox" href="{{ post.permalink }}" aria-label="Read {{ post.title }}"></a>
+  <a class="row-hitbox" href="{{ post.permalink | replace(from=config.base_url, to='') }}" aria-label="Read {{ post.title }}"></a>
   <div class="row-meta"{% if has_post_transition %} style="view-transition-name: post-meta-{{ post.slug }};"{% endif %}>
     {% if post.date %}<time datetime="{{ post.date }}">{{ post.date | date(format="%b %-d, %Y") }}</time>{% endif %}
     {% if post.reading_time %}<span>{{ post.reading_time }} min read</span>{% endif %}
@@ -11,7 +11,7 @@
     {% if post.taxonomies.tags %}
       <div class="tags"{% if has_post_transition %} style="view-transition-name: post-tags-{{ post.slug }};"{% endif %}>
         {% for tag in post.taxonomies.tags %}
-          <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>
+          <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) | replace(from=config.base_url, to='') }}">{{ tag }}</a>
         {% endfor %}
       </div>
     {% endif %}

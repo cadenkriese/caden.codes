@@ -8,18 +8,18 @@
   <title>{% block title %}{% if page %}{{ page.title }} - {% elif section and section.title %}{{ section.title }} - {% endif %}{{ config.title }}{% endblock title %}</title>
   <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
   <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}">
-  <link rel="icon" href="{{ get_url(path='images/favicon.svg') }}" type="image/svg+xml">
-  <link rel="alternate" type="application/rss+xml" title="{{ config.title }} RSS feed" href="{{ get_url(path='rss.xml') }}">
-  <link rel="stylesheet" href="{{ get_url(path='css/site.css') }}">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="{{ config.title }} RSS feed" href="/rss.xml">
+  <link rel="stylesheet" href="/css/site.css">
   {% block extra_head %}{% endblock extra_head %}
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="wordmark" href="{{ get_url(path='/') }}">{{ config.title }}</a>
+      <a class="wordmark" href="/">{{ config.title }}</a>
       <nav class="social-nav" aria-label="Profile links">
-        <a href="{{ config.extra.github_url }}" aria-label="GitHub"><img src="{{ get_url(path='images/github.svg') }}" alt=""></a>
-        <a href="{{ config.extra.linkedin_url }}" aria-label="LinkedIn"><img src="{{ get_url(path='images/linkedin.svg') }}" alt=""></a>
+        <a href="{{ config.extra.github_url }}" aria-label="GitHub"><img src="/images/github.svg" alt=""></a>
+        <a href="{{ config.extra.linkedin_url }}" aria-label="LinkedIn"><img src="/images/linkedin.svg" alt=""></a>
       </nav>
     </div>
   </header>
@@ -32,7 +32,7 @@
     <ul>
       <li><a href="{{ config.extra.github_url }}">GitHub</a></li>
       <li><a href="{{ config.extra.linkedin_url }}">LinkedIn</a></li>
-      <li><a href="{{ get_url(path='rss.xml') }}">RSS</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
     </ul>
   </footer>
 </body>
