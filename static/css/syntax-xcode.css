@@ -1,4 +1,4 @@
-.prose pre {
+pre {
   --syntax-bg: light-dark(#fff, hsl(197, 100%, 3.5%));
   --syntax-text: light-dark(#322529, #F2F3F8);
   --syntax-comment: light-dark(#536579, #9BB8CD);
@@ -15,83 +15,83 @@
   
   background: var(--syntax-bg);
   color: var(--syntax-text);
-}
 
-.prose pre code {
-  color: inherit;
-}
+  code {
+    color: inherit;
+  }
 
-.prose pre mark {
-  display: block;
-  background: var(--syntax-mark);
-  color: inherit;
-}
+  mark {
+    display: block;
+    background: var(--syntax-mark);
+    color: inherit;
+  }
 
-.prose pre .giallo-l {
-  display: inline-block;
-  min-height: 1lh;
-  width: 100%;
-}
+  .giallo-l {
+    display: inline-block;
+    min-height: 1lh;
+    width: 100%;
+  }
 
-.prose pre .giallo-ln {
-  display: inline-block;
-  min-width: 3ch;
-  margin-right: .4em;
-  padding-right: .4em;
-  color: var(--syntax-line-number);
-  text-align: right;
-  user-select: none;
-}
+  .giallo-ln {
+    display: inline-block;
+    min-width: 3ch;
+    margin-right: .4em;
+    padding-right: .4em;
+    color: var(--syntax-line-number);
+    text-align: right;
+    user-select: none;
+  }
 
-.prose pre .z-comment {
-  color: var(--syntax-comment);
-  font-style: italic;
-}
+  .z-comment {
+    color: var(--syntax-comment);
+    font-style: italic;
+  }
 
-.prose pre .z-keyword,
-.prose pre .z-storage,
-.prose pre .z-modifier {
-  color: var(--syntax-keyword);
-}
+  .z-keyword,
+  .z-storage,
+  .z-modifier {
+    color: var(--syntax-keyword);
+  }
 
-.prose pre .z-string {
-  color: var(--syntax-string);
-}
+  .z-string {
+    color: var(--syntax-string);
+  }
 
-.prose pre .z-constant,
-.prose pre .z-numeric,
-.prose pre .z-boolean {
-  color: var(--syntax-number);
-}
+  .z-constant,
+  .z-numeric,
+  .z-boolean {
+    color: var(--syntax-number);
+  }
 
-.prose pre .z-entity.z-name.z-function,
-.prose pre .z-entity.z-name,
-.prose pre .z-support.z-function {
-  color: var(--syntax-function);
-}
+  .z-entity.z-name.z-function,
+  .z-entity.z-name,
+  .z-support.z-function {
+    color: var(--syntax-function);
+  }
 
-.prose pre .z-entity.z-name.z-type,
-.prose pre .z-entity.z-name.z-class,
-.prose pre .z-support.z-type,
-.prose pre .z-support.z-class {
-  color: var(--syntax-type);
-}
+  .z-entity.z-name.z-type,
+  .z-entity.z-name.z-class,
+  .z-support.z-type,
+  .z-support.z-class {
+    color: var(--syntax-type);
+  }
 
-.prose pre .z-variable,
-.prose pre .z-parameter {
-  color: var(--syntax-variable);
-}
+  .z-variable,
+  .z-parameter {
+    color: var(--syntax-variable);
+  }
 
-.prose pre .z-property-name,
-.prose pre .z-support.z-property-name {
-  color: var(--syntax-property);
-}
+  .z-property-name,
+  .z-support.z-property-name {
+    color: var(--syntax-property);
+  }
 
-.prose pre .z-punctuation,
-.prose pre .z-operator {
-  color: var(--syntax-punctuation);
-}
+  .z-punctuation,
+  .z-operator {
+    color: var(--syntax-punctuation);
+  }
 
-.prose pre .z-punctuation.z-definition.z-string {
-  color: var(--syntax-string);
+  .z-punctuation.z-definition.z-string {
+    color: var(--syntax-string);
+  }
 }

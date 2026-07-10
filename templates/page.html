@@ -7,9 +7,9 @@
 {% set is_essay = page.extra.essay | default(value=false) or content_kind == "essay" %}
 {% set parent_section = page.ancestors | last %}
 {% if parent_section == "blog/_index.md" and not is_essay %}
-  <style>
-{{ load_data(path="css/syntax-xcode.css") | safe }}
-  </style>
+<style>
+  {{ load_data(path="css/syntax-xcode.css") | safe }}
+</style>
 {% endif %}
 {% endblock extra_head %}
 
@@ -17,47 +17,46 @@
 {% set content_kind = page.extra.kind | default(value="") %}
 {% set is_essay = page.extra.essay | default(value=false) or content_kind == "essay" %}
 
-<article class="container page-head post-head" style="view-transition-name: post-{{ page.slug }};">
-  <h1 class="article-title" style="view-transition-name: post-title-{{ page.slug }};">{{ page.title }}</h1>
-  <!-- {% if page.description %}
-    <p class="lede" style="view-transition-name: post-description-{{ page.slug }};">{{ page.description }}</p>
-  {% endif %} -->
-    <!-- {% if page.date %}
+<article class="{% if is_essay %} essay{% endif %}">
+  <header style="view-transition-name: post-{{ page.slug }};">
+    {% if page.date %}
     <p class="meta-line article-meta" style="view-transition-name: post-meta-{{ page.slug }};">
       <span>{{ page.date | date(format="%b %-d, %Y") }}</span>
     </p>
-  {% endif %} -->
-</article>
+    {% endif %}
+    <h1 class="article-title" style="view-transition-name: post-title-{{ page.slug }};">{{ page.title }}</h1>
+    <!-- {% if page.description %}
+    <p class="lede" style="view-transition-name: post-description-{{ page.slug }};">{{ page.description }}</p>
+    {% endif %} -->
 
-<article class="article-layout post-body prose{% if is_essay %} essay-prose{% endif %}">
+  </header>
+  
   {{ page.content | safe }}
+  
+  
+  {% if page.taxonomies.tags %}
+  <footer class="tags" style="view-transition-name: post-tags-{{ page.slug }};">
+    {% for tag in page.taxonomies.tags %}
+    <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) | replace(from=config.base_url, to='') }}">{{ tag }}</a>
+    {% endfor %}
+  </footer>
+  {% endif %}
 </article>
-
-{% if page.taxonomies.tags %}
-  <section class="article-layout article-footer" aria-label="Article tags">
-    <div></div>
-    <div class="tags" style="view-transition-name: post-tags-{{ page.slug }};">
-      {% for tag in page.taxonomies.tags %}
-        <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) | replace(from=config.base_url, to='') }}">{{ tag }}</a>
-      {% endfor %}
-    </div>
-  </section>
-{% endif %}
 
 {% if page.lower or page.higher %}
-  <section class="container section related-posts">
-    <h3 class="section-title section-title-small">Recent Posts</h3>
-    <ul class="row-list">
-      {% if page.lower %}
-        {% set post = page.lower %}
-        {% set post_transition = false %}
-        {% include "partials/post-row.html" %}
-      {% elif page.higher %}
-        {% set post = page.higher %}
-        {% set post_transition = false %}
-        {% include "partials/post-row.html" %}
-      {% endif %}
-    </ul>
-  </section>
+<section class="container">
+  <h3 class="section-title-small">Recent Posts</h3>
+  <ul class="row-list">
+    {% if page.lower %}
+    {% set post = page.lower %}
+    {% set post_transition = false %}
+    {% include "partials/post-row.html" %}
+    {% elif page.higher %}
+    {% set post = page.higher %}
+    {% set post_transition = false %}
+    {% include "partials/post-row.html" %}
+    {% endif %}
+  </ul>
+</section>
 {% endif %}
 {% endblock content %}

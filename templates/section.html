@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="container page-head">
+<section class="container">
   <a class="text-link back-link" href="/">Back home</a>
-  <h1 class="article-title">{{ section.title }}</h1>
+  <h1>{{ section.title }}</h1>
   {% if section.taxonomies.tags %}
     <div class="tags">
       {% for tag in section.taxonomies.tags %}

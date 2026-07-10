@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="container page-head">
+<section class="container">
   <a class="text-link back-link" href="/">Back home</a>
-  <h1 class="article-title">Tags</h1>
+  <h1>Tags</h1>
   <div class="tags">
     {% for term in terms %}
       <a class="tag" href="{{ term.permalink | replace(from=config.base_url, to='') }}">{{ term.name }}</a>
