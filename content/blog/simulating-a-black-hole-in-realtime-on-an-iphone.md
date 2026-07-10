@@ -14,7 +14,7 @@ Example posts are useful when a site needs realistic placeholder content. They h
 
 <figure>
   <img src="/images/example-wide-figure.svg" alt="Abstract wide image with vertical color bands and white linework.">
-  <figcaption>A wide figure for checking article media alignment against the larger layout region.</figcaption>
+  <figcaption>A wide figure for checking article media alignment against the larger layout region. Testing even longer and longer and longer and longer and longer captions. Testing even longer and longer and longer and longer and longer captions.</figcaption>
 </figure>
 
 ## Main Content

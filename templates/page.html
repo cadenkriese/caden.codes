@@ -19,21 +19,18 @@
 
 <article class="container page-head post-head" style="view-transition-name: post-{{ page.slug }};">
   <h1 class="article-title" style="view-transition-name: post-title-{{ page.slug }};">{{ page.title }}</h1>
-  {% if page.description %}
+  <!-- {% if page.description %}
     <p class="lede" style="view-transition-name: post-description-{{ page.slug }};">{{ page.description }}</p>
-  {% endif %}
-</article>
-
-<article class="article-layout post-body">
-  {% if page.date %}
+  {% endif %} -->
+    <!-- {% if page.date %}
     <p class="meta-line article-meta" style="view-transition-name: post-meta-{{ page.slug }};">
       <span>{{ page.date | date(format="%b %-d, %Y") }}</span>
-      {% if page.reading_time %}<span>{{ page.reading_time }} min read</span>{% endif %}
     </p>
-  {% endif %}
-  <div class="prose{% if is_essay %} essay-prose{% endif %}">
-    {{ page.content | safe }}
-  </div>
+  {% endif %} -->
+</article>
+
+<article class="article-layout post-body prose{% if is_essay %} essay-prose{% endif %}">
+  {{ page.content | safe }}
 </article>
 
 {% if page.taxonomies.tags %}
