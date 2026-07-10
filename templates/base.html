@@ -8,7 +8,7 @@
   <title>{% block title %}{% if page %}{{ page.title }} - {% elif section and section.title %}{{ section.title }} - {% endif %}{{ config.title }}{% endblock title %}</title>
   <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
   <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}">
-  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="data:image/svg+xml,{{ load_data(path='images/favicon.svg') | urlencode | safe }}" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="{{ config.title }} RSS feed" href="/rss.xml">
   <link rel="stylesheet" href="/css/site.css">
   {% block extra_head %}{% endblock extra_head %}
@@ -18,8 +18,8 @@
     <div class="container header-inner">
       <a class="wordmark" href="/">{{ config.title }}</a>
       <nav class="socials" aria-label="Social links">
-        <a href="{{ config.extra.github_url }}" aria-label="GitHub"><img src="/images/github.svg" alt=""></a>
-        <a href="{{ config.extra.linkedin_url }}" aria-label="LinkedIn"><img src="/images/linkedin.svg" alt=""></a>
+        <a href="{{ config.extra.github_url }}" aria-label="GitHub">{{ load_data(path="images/github.svg") | safe }}</a>
+        <a href="{{ config.extra.linkedin_url }}" aria-label="LinkedIn">{{ load_data(path="images/linkedin.svg") | safe }}</a>
       </nav>
     </div>
   </header>

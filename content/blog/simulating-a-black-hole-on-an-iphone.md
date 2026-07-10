@@ -1,5 +1,5 @@
 +++
-title = "Simulating a Black Hole in Real Time on an iPhone"
+title = "Simulating a Black Hole on an iPhone"
 date = 2026-07-08T14:00:00
 description = ""
 [taxonomies]
@@ -13,7 +13,7 @@ This is a generic example post. It provides sample content that can be used to t
 Example posts are useful when a site needs realistic placeholder content. They help confirm that titles, descriptions, dates, tags, and body content render consistently across different templates.
 
 <figure>
-  <img src="/images/example-wide-figure.svg" alt="Abstract wide image with vertical color bands and white linework.">
+  {{ svg(path="images/example-wide-figure.svg") }}
   <figcaption>A wide figure for checking article media alignment against the larger layout region. Testing even longer and longer and longer and longer and longer captions. Testing even longer and longer and longer and longer and longer captions.</figcaption>
 </figure>
 

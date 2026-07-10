@@ -89,8 +89,8 @@ section[id] { scroll-margin-top: 5rem; }
     gap: .65rem 1rem;
     
     a {
-      min-width: 1.45rem;
-      height: 1.45rem;
+      min-width: 1.625rem;
+      height: 1.625rem;
       display: inline-grid;
       place-items: center;
       color: var(--muted);
@@ -102,15 +102,16 @@ section[id] { scroll-margin-top: 5rem; }
         transform: translateY(-1.5px);
         color: var(--text);
         
-        img {
+        svg {
           opacity: 1;
         }
       }
     }
     
-    img {
-      width: 1.05rem;
-      height: 1.05rem;
+    svg {
+      display: block;
+      width: 1.125rem;
+      height: 1.125rem;
       opacity: .75;
       transition: opacity .16s;
     }
