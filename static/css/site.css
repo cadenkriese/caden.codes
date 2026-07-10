@@ -386,7 +386,7 @@ article {
   --measure: 55ch;
   --gutter: 2rem;
   
-  width: min(1040px, calc(100% - 40px));
+  width: min(1150px, 100%);
   margin-inline: auto;
   display: grid;
   grid-template-columns: 1fr var(--measure) 1fr;
@@ -407,6 +407,11 @@ article {
   
   > :is(figure, img, pre) {
     grid-column: 1 / -1;
+  }
+
+  > :is(figure, img) {
+    margin-inline: 0;
+    width: 100%;
   }
   
   header {
@@ -461,15 +466,17 @@ article {
     }
   }
   
-  img {
+  img,
+  figure > svg {
     display: block;
     width: 100%;
+    height: auto;
     border: 1px solid var(--line);
     border-radius: 8px;
   }
   
   figcaption {
-    margin: .6lh 2ch 0;
+    margin: .6lh 4rem 0;
     color: var(--muted);
     font-size: .9rem;
     line-height: 1.55;

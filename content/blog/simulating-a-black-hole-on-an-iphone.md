@@ -17,8 +17,6 @@ Example posts are useful when a site needs realistic placeholder content. They h
   <figcaption>A wide figure for checking article media alignment against the larger layout region. Testing even longer and longer and longer and longer and longer captions. Testing even longer and longer and longer and longer and longer captions.</figcaption>
 </figure>
 
-## Main Content
-
 This section includes a few paragraphs of neutral text. The goal is to create enough structure for checking how the page behaves with headings, links, and standard paragraphs.
 
 Here is a short JavaScript example that can be used to verify code block styling:
