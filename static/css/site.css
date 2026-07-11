@@ -39,6 +39,11 @@
   }
 }
 
+::selection {
+  color: var(--paper);
+  background-color: var(--accent);
+}
+
 * { box-sizing: border-box; }
 html { background: var(--bg); }
 body {
