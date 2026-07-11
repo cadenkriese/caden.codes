@@ -40,7 +40,7 @@
 }
 
 * { box-sizing: border-box; }
-html { background: var(--bg); scroll-behavior: smooth; }
+html { background: var(--bg); }
 body {
   margin: 0;
   background: var(--bg);
@@ -241,7 +241,6 @@ article :is(p, li, blockquote, figcaption) a:hover {
 
 .article-meta {
   margin: .15rem 0 0;
-  justify-self: end;
   text-align: right;
   
   span {
