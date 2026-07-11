@@ -7,7 +7,7 @@
   --faint: light-dark(#9a94a3, #7d7485);
   --line: light-dark(#e5e1e8, #2f2a36);
   --line-strong: light-dark(#cac2d0, #4a4253);
-  --soft: light-dark(#f0edf3, #211e28);
+  --soft: light-dark(#edeef3, #1e2228);
   --accent: light-dark(#3e7ac4, #7aadff);
   --accent-quiet: light-dark(#316593, #a1adf3);
   --spring-easing: linear(0, 0.005, 0.02 2.2%, 0.081 4.9%, 0.465 16.3%, 0.56, 0.641, 0.712 25.9%, 0.772 29.3%, 0.824, 0.867 36.6%, 0.905 41%, 0.934 45.9%, 0.957 51.3%, 0.974 57.6%, 0.986 64.6%, 0.993 73.3%, 0.999);
