@@ -4,6 +4,8 @@ author = "Caden Kriese"
 description = "Caden Kriese's personal website."
 default_language = "en"
 generate_feeds = true
+ignored_static = [ "images/github.svg", "images/linkedin.svg" ] # Directly embedded
+ignored_content = [ "**/*.{jpg,jpeg,png,webp}" ] # Original images are processed by Zola
 taxonomies = [
   { name = "tags", feed = true },
 ]
