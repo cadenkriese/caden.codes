@@ -20,22 +20,29 @@
 {% set header_text = page.extra.header_text | default(value="light") %}
 {% set header_position = page.extra.header_position | default(value="50% 50%") %}
 {% set header_image_alt = page.extra.header_image_alt | default(value="") %}
-{% set header_image_avif = page.extra.header_image_avif | default(value="") %}
-{% set header_image_jxl = page.extra.header_image_jxl | default(value="") %}
 
 <article{% if is_essay %} class="essay"{% endif %}>
   {% if header_image %}
   {% set header_image_path = page.colocated_path ~ header_image %}
-  {% set header_image_url = get_url(path=header_image_path) %}
   {% set header_image_meta = get_image_metadata(path=header_image_path) %}
   {% endif %}
   <header{% if header_image %} data-text="{% if header_text == 'dark' %}dark{% else %}light{% endif %}" style="--image-position: {{ header_position }}; view-transition-name: post-{{ page.slug }};"{% else %} style="view-transition-name: post-{{ page.slug }};"{% endif %}>
     {% if header_image %}
+    {% set image_widths = [768, 1536, 2304, 3456] %}
     <picture>
-      {% if header_image_jxl %}<source type="image/jxl" srcset="{{ get_url(path=page.colocated_path ~ header_image_jxl) | safe }}">{% endif %}
-      {% if header_image_avif %}<source type="image/avif" srcset="{{ get_url(path=page.colocated_path ~ header_image_avif) | safe }}">{% endif %}
+      <source
+        type="image/avif"
+        srcset="{% set_global first_image = true %}{% for width in image_widths %}{% if width <= header_image_meta.width %}{% set image = resize_image(path=header_image_path, width=width, op='fit_width', format='avif', quality=75) %}{% if not first_image %}, {% endif %}{{ image.url | safe }} {{ image.width }}w{% set_global first_image = false %}{% endif %}{% endfor %}"
+        sizes="100vw"
+      >
+      <source
+        type="image/webp"
+        srcset="{% set_global first_image = true %}{% for width in image_widths %}{% if width <= header_image_meta.width %}{% set image = resize_image(path=header_image_path, width=width, op='fit_width', format='webp', quality=88) %}{% if not first_image %}, {% endif %}{{ image.url | safe }} {{ image.width }}w{% set_global first_image = false %}{% endif %}{% endfor %}"
+        sizes="100vw"
+      >
+      {% set fallback = resize_image(path=header_image_path, width=header_image_meta.width, op='fit_width', format='webp', quality=88) %}
       <img
-        src="{{ header_image_url | safe }}"
+        src="{{ fallback.url | safe }}"
         width="{{ header_image_meta.width }}"
         height="{{ header_image_meta.height }}"
         alt="{{ header_image_alt }}"
