@@ -1,6 +1,7 @@
 +++
 title = "Simulating a Black Hole on an iPhone"
 date = 2026-07-11T09:00:00
+draft = true
 description = ""
 [extra]
 header_image = "header.webp"
