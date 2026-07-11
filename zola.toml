@@ -1,5 +1,6 @@
 base_url = "https://caden.codes"
 title = "Caden Kriese"
+author = "Caden Kriese"
 description = "Caden Kriese's personal website."
 default_language = "en"
 generate_feeds = true
@@ -8,6 +9,8 @@ taxonomies = [
 ]
 
 [markdown]
+external_links_target_blank = true
+smart_punctuation = true
 
 [markdown.highlighting]
 style = "class"
