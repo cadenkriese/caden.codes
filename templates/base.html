@@ -9,7 +9,7 @@
   <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
   <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}">
   <link rel="icon" href="data:image/svg+xml,{{ load_data(path='images/favicon.svg') | urlencode | safe }}" type="image/svg+xml">
-  <link rel="alternate" type="application/rss+xml" title="{{ config.title }} RSS feed" href="/rss.xml">
+  <link rel="alternate" type="application/atom+xml" title="{{ config.title }} Atom feed" href="/atom.xml">
   <link rel="stylesheet" href="/css/site.css">
   {% block extra_head %}{% endblock extra_head %}
 </head>
@@ -32,7 +32,7 @@
     <ul>
       <li><a href="{{ config.extra.github_url }}">GitHub</a></li>
       <li><a href="{{ config.extra.linkedin_url }}">LinkedIn</a></li>
-      <li><a href="/rss.xml">RSS</a></li>
+      <li><a href="/atom.xml">Atom</a></li>
     </ul>
   </footer>
 </body>
