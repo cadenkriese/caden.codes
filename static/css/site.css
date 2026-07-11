@@ -163,6 +163,7 @@ body:has(.hero) .wordmark {
 
 .jump-links,
 .tags {
+  margin-block-start: 0.5rem;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
