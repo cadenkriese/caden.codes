@@ -60,6 +60,29 @@ a { color: inherit; }
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+
+.skip-link {
+  position: fixed;
+  inset-block-start: .75rem;
+  inset-inline-start: .75rem;
+  z-index: 100;
+  padding: .65rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--paper);
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+#main-content:focus {
+  outline: none;
+}
 img { max-width: 100%; }
 section[id] { scroll-margin-top: 5rem; }
 
