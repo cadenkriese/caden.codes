@@ -28,7 +28,7 @@
   {% endif %}
   <header{% if header_image %} data-text="{% if header_text == 'dark' %}dark{% else %}light{% endif %}" style="--image-position: {{ header_position }}; view-transition-name: post-{{ page.slug }};"{% else %} style="view-transition-name: post-{{ page.slug }};"{% endif %}>
     {% if header_image %}
-    {% set image_widths = [768, 1536, 2304, 3456] %}
+    {% set image_widths = [768, 1536, 3456] %}
     <picture>
       <source
         type="image/avif"
