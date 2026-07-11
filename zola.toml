@@ -1,7 +1,7 @@
 base_url = "https://caden.codes"
 title = "Caden Kriese"
 author = "Caden Kriese"
-description = "Caden Kriese's personal website."
+description = "My personal website. I write about my projects and interests in computer graphics, physics and design."
 default_language = "en"
 generate_feeds = true
 ignored_static = [ "images/github.svg", "images/linkedin.svg" ] # Directly embedded
