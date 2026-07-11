@@ -364,9 +364,13 @@ article > footer {
 
 .tag {
   display: inline-flex;
+  min-width: 24px;
+  min-height: 24px;
+  align-items: center;
+  justify-content: center;
   padding: .16rem .45rem;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 7px;
   background: color-mix(in srgb, var(--paper) 75%, transparent);
   color: var(--muted);
   font-family: var(--font-mono);
