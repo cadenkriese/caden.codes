@@ -1,7 +1,12 @@
 +++
 title = "Simulating a Black Hole on an iPhone"
-date = 2026-07-08T14:00:00
+date = 2026-07-11T09:00:00
 description = ""
+[extra]
+header_image = "header.webp"
+header_text = "light"
+header_position = "50% 50%"
+header_image_alt = ""
 [taxonomies]
 tags = ["Programming"]
 +++

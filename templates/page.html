@@ -16,19 +16,41 @@
 {% block content %}
 {% set content_kind = page.extra.kind | default(value="") %}
 {% set is_essay = page.extra.essay | default(value=false) or content_kind == "essay" %}
+{% set header_image = page.extra.header_image | default(value="") %}
+{% set header_text = page.extra.header_text | default(value="light") %}
+{% set header_position = page.extra.header_position | default(value="50% 50%") %}
+{% set header_image_alt = page.extra.header_image_alt | default(value="") %}
+{% set header_image_avif = page.extra.header_image_avif | default(value="") %}
+{% set header_image_jxl = page.extra.header_image_jxl | default(value="") %}
 
-<article class="{% if is_essay %} essay{% endif %}">
-  <header style="view-transition-name: post-{{ page.slug }};">
-    {% if page.date %}
-    <p class="meta-line article-meta" style="view-transition-name: post-meta-{{ page.slug }};">
-      <span>{{ page.date | date(format="%b %-d, %Y") }}</span>
-    </p>
+<article{% if is_essay %} class="essay"{% endif %}>
+  {% if header_image %}
+  {% set header_image_path = page.colocated_path ~ header_image %}
+  {% set header_image_url = get_url(path=header_image_path) %}
+  {% set header_image_meta = get_image_metadata(path=header_image_path) %}
+  {% endif %}
+  <header{% if header_image %} data-text="{% if header_text == 'dark' %}dark{% else %}light{% endif %}" style="--image-position: {{ header_position }}; view-transition-name: post-{{ page.slug }};"{% else %} style="view-transition-name: post-{{ page.slug }};"{% endif %}>
+    {% if header_image %}
+    <picture>
+      {% if header_image_jxl %}<source type="image/jxl" srcset="{{ get_url(path=page.colocated_path ~ header_image_jxl) | safe }}">{% endif %}
+      {% if header_image_avif %}<source type="image/avif" srcset="{{ get_url(path=page.colocated_path ~ header_image_avif) | safe }}">{% endif %}
+      <img
+        src="{{ header_image_url | safe }}"
+        width="{{ header_image_meta.width }}"
+        height="{{ header_image_meta.height }}"
+        alt="{{ header_image_alt }}"
+        fetchpriority="high"
+      >
+    </picture>
     {% endif %}
-    <h1 class="article-title" style="view-transition-name: post-title-{{ page.slug }};">{{ page.title }}</h1>
-    <!-- {% if page.description %}
-    <p class="lede" style="view-transition-name: post-description-{{ page.slug }};">{{ page.description }}</p>
-    {% endif %} -->
-
+    <div>
+      {% if page.date %}
+      <p class="meta-line article-meta" style="view-transition-name: post-meta-{{ page.slug }};">
+        <span>{{ page.date | date(format="%b %-d, %Y") }}</span>
+      </p>
+      {% endif %}
+      <h1 class="article-title" style="view-transition-name: post-title-{{ page.slug }};">{{ page.title }}</h1>
+    </div>
   </header>
   
   {{ page.content | safe }}
