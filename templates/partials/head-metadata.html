@@ -30,7 +30,7 @@
   {% set social_image_url = social_image.url %}
   {% set social_image_alt = page.extra.header_image_alt | default(value="") %}
 {% endif %}
-
+  <!-- Open Graph -->
   <meta property="og:title" content="{{ meta_title }}">
   <meta property="og:description" content="{{ meta_description }}">
   <meta property="og:site_name" content="{{ config.title }}">
@@ -47,6 +47,7 @@
 {% for tag in page.taxonomies.tags | default(value=[]) %}  <meta property="article:tag" content="{{ tag }}">
 {% endfor %}{% endif %}
 
+  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",

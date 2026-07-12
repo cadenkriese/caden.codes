@@ -5,13 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f7fa" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121116" media="(prefers-color-scheme: dark)">
+
   <title>{% block title %}{% if page %}{{ page.title }}{% elif section and section.title %}{{ section.title }}{% else %}{{ config.title }}{% endif %}{% endblock title %}</title>
   <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
   <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}">
+
   {% include "partials/head-metadata.html" %}
-  <link rel="icon" href="/favicon.ico" sizes="32x32">
+
+  <!-- Icons -->
   <link rel="icon" href="data:image/svg+xml,{{ load_data(path='images/favicon.svg') | urlencode | safe }}" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" sizes="180x180">
+
   <link rel="alternate" type="application/atom+xml" title="{{ config.title }} Atom feed" href="/atom.xml">
   <link rel="stylesheet" href="/css/site.css">
   {% block extra_head %}{% endblock extra_head %}
