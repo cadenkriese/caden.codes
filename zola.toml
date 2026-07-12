@@ -22,5 +22,3 @@ dark_theme = "github-dark"
 [extra]
 github_url = "https://github.com/cadenkriese"
 linkedin_url = "https://www.linkedin.com/in/caden-kriese/"
-default_social_image = "images/og-default.jpg"
-default_social_image_alt = "Caden Kriese"

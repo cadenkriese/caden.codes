@@ -22,8 +22,8 @@
   {% set meta_title = "Tags" %}
 {% endif %}
 
-{% set social_image_url = get_url(path=config.extra.default_social_image) %}
-{% set social_image_alt = config.extra.default_social_image_alt %}
+{% set social_image_url = "" %}
+{% set social_image_alt = "" %}
 {% if page and page.extra.header_image %}
   {% set social_image_path = page.colocated_path ~ page.extra.header_image %}
   {% set social_image = resize_image(path=social_image_path, width=1200, height=630, op="fill", format="jpeg", quality=88) %}
@@ -37,12 +37,12 @@
   <meta property="og:url" content="{{ meta_url }}">
   <meta property="og:type" content="{{ meta_type }}">
   <meta property="og:locale" content="en_US">
-  <meta property="og:image" content="{{ social_image_url | safe }}">
+{% if social_image_url %}  <meta property="og:image" content="{{ social_image_url | safe }}">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 {% if social_image_alt %}  <meta property="og:image:alt" content="{{ social_image_alt }}">
-{% endif %}
+{% endif %}{% endif %}
 {% if is_blog_post %}  <meta property="article:published_time" content="{{ page.date | date(format="%+") }}">
 {% for tag in page.taxonomies.tags | default(value=[]) %}  <meta property="article:tag" content="{{ tag }}">
 {% endfor %}{% endif %}
@@ -75,8 +75,8 @@
           "mainEntityOfPage": {{ meta_url | json_encode | safe }},
           "datePublished": {{ page.date | date(format="%+") | json_encode | safe }},
           "author": { "@id": {{ person_id | json_encode | safe }} },
-          "publisher": { "@id": {{ person_id | json_encode | safe }} },
-          "image": {{ social_image_url | json_encode | safe }},
+          "publisher": { "@id": {{ person_id | json_encode | safe }} }{% if social_image_url %},
+          "image": {{ social_image_url | json_encode | safe }}{% endif %},
           "keywords": {{ page.taxonomies.tags | default(value=[]) | json_encode | safe }}
         }{% endif %}
       ]
