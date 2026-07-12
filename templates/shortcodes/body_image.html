@@ -1,0 +1,28 @@
+{% set image_path = page.colocated_path ~ path %}
+{% set metadata = get_image_metadata(path=image_path) %}
+{% set display_width = metadata.width %}
+{% if display_width > 1150 %}{% set display_width = 1150 %}{% endif %}
+{% set fallback = resize_image(path=image_path, width=display_width, op="fit_width", format="webp", quality=88) %}
+<figure class="body-image"{% if height %} style="--body-image-height: {{ height }};"{% endif %}>
+  <picture>
+    <source
+      type="image/avif"
+      srcset="{% set_global first = true %}{% for width in [480, 768, 1150] %}{% if width < display_width %}{% set image = resize_image(path=image_path, width=width, op='fit_width', format='avif', quality=75) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w{% set_global first = false %}{% endif %}{% endfor %}{% set image = resize_image(path=image_path, width=display_width, op='fit_width', format='avif', quality=75) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w"
+      sizes="(max-width: 1150px) 100vw, 1150px"
+    >
+    <source
+      type="image/webp"
+      srcset="{% set_global first = true %}{% for width in [480, 768, 1150] %}{% if width < display_width %}{% set image = resize_image(path=image_path, width=width, op='fit_width', format='webp', quality=88) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w{% set_global first = false %}{% endif %}{% endfor %}{% if not first %}, {% endif %}{{ fallback.url | safe }} {{ fallback.width }}w"
+      sizes="(max-width: 1150px) 100vw, 1150px"
+    >
+    <img
+      src="{{ fallback.url | safe }}"
+      width="{{ fallback.width }}"
+      height="{{ fallback.height }}"
+      alt="{{ alt }}"
+      loading="lazy"
+      decoding="async"
+    >
+  </picture>
+  {% if caption %}<figcaption>{{ caption }}</figcaption>{% endif %}
+</figure>

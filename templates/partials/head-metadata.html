@@ -2,6 +2,7 @@
 {% set meta_description = config.description %}
 {% set meta_url = current_url | default(value=config.base_url ~ "/") %}
 {% set meta_type = "website" %}
+{% set site_name = "caden.codes" %}
 {% set is_blog_post = false %}
 {% set home_url = config.base_url ~ "/" %}
 {% set person_id = config.base_url ~ "/#person" %}
@@ -33,7 +34,7 @@
   <!-- Open Graph -->
   <meta property="og:title" content="{{ meta_title }}">
   <meta property="og:description" content="{{ meta_description }}">
-  <meta property="og:site_name" content="{{ config.title }}">
+  <meta property="og:site_name" content="{{ site_name }}">
   <meta property="og:url" content="{{ meta_url }}">
   <meta property="og:type" content="{{ meta_type }}">
   <meta property="og:locale" content="en_US">
@@ -62,7 +63,7 @@
         {
           "@type": "WebSite",
           "@id": {{ website_id | json_encode | safe }},
-          "name": {{ config.title | json_encode | safe }},
+          "name": {{ site_name | json_encode | safe }},
           "description": {{ config.description | json_encode | safe }},
           "url": {{ home_url | json_encode | safe }},
           "publisher": { "@id": {{ person_id | json_encode | safe }} }
