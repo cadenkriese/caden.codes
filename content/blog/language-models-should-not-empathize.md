@@ -5,7 +5,7 @@ description = "Today's A.I. chatbots feign conscioussness. Here's why they shoul
 [extra]
 kind = "essay"
 [taxonomies]
-tags = ["AI", "Essay"]
+tags = ["Essay"]
 +++
 Emotions are our puppet strings. Gambling, tobacco, and social media companies figured this out years ago and profit by it. Now, A.I. companies do too. When language models are trained to generate statements of value, they generate ones that appeal to people’s emotions. To people’s egos with sycophancy, to their loneliness with friendliness, and to their depression with validation. These programs are trained on billions of words to find the exact ones you want—not the ones you need. 
 
