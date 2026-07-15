@@ -128,10 +128,12 @@ section[id] { scroll-margin-top: 5rem; }
       color: var(--muted);
       font-size: .9rem;
       text-decoration: none;
+      /* Apply a transform to workaround the Safari bug where part of the icon is cut off */
+      transform: translate3d(0, 0, 0);
       transition: color .16s, transform .16s;
       
       &:hover {
-        transform: translateY(-1.5px);
+        transform: translate3d(0, -1.5px, 0);
         color: var(--text);
         
         svg {
