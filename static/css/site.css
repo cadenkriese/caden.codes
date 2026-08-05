@@ -568,6 +568,22 @@ article {
     border: 1px solid var(--line);
     border-radius: 8px;
   }
+
+  .body-image {
+    width: fit-content;
+    max-width: 100%;
+
+    img {
+      width: auto;
+      max-width: 100%;
+      max-height: var(--body-image-height, none);
+      margin-inline: auto;
+    }
+
+    figcaption {
+      margin-inline: 0;
+    }
+  }
   
   figcaption {
     margin: .6lh 4rem 0;
