@@ -1,3 +1,4 @@
+{% component body_image(page, path, alt, height=None, caption=None) %}
 {% set image_path = page.colocated_path ~ path %}
 {% set metadata = get_image_metadata(path=image_path) %}
 {% set display_width = metadata.width %}
@@ -26,3 +27,4 @@
   </picture>
   {% if caption %}<figcaption>{{ caption }}</figcaption>{% endif %}
 </figure>
+{% endcomponent body_image %}

@@ -11,7 +11,7 @@
     {% if post.taxonomies.tags %}
       <div class="tags"{% if has_post_transition %} style="view-transition-name: post-tags-{{ post.slug }};"{% endif %}>
         {% for tag in post.taxonomies.tags %}
-          <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) | replace(from=config.base_url, to='') }}">{{ tag }}</a>
+          <a class="tag" href="{{ get_taxonomy_url(kind='tags', term=tag) | replace(from=config.base_url, to='') }}">{{ tag }}</a>
         {% endfor %}
       </div>
     {% endif %}

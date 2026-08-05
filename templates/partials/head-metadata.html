@@ -44,7 +44,7 @@
   <meta property="og:image:height" content="630">
 {% if social_image_alt %}  <meta property="og:image:alt" content="{{ social_image_alt }}">
 {% endif %}{% endif %}
-{% if is_blog_post %}  <meta property="article:published_time" content="{{ page.date | date(format="%+") }}">
+{% if is_blog_post %}  <meta property="article:published_time" content="{{ page.date | date(format="%FT%T%:z") }}">
 {% for tag in page.taxonomies.tags | default(value=[]) %}  <meta property="article:tag" content="{{ tag }}">
 {% endfor %}{% endif %}
 
@@ -75,7 +75,7 @@
           "description": {{ meta_description | json_encode | safe }},
           "url": {{ meta_url | json_encode | safe }},
           "mainEntityOfPage": {{ meta_url | json_encode | safe }},
-          "datePublished": {{ page.date | date(format="%+") | json_encode | safe }},
+          "datePublished": {{ page.date | date(format="%FT%T%:z") | json_encode | safe }},
           "author": { "@id": {{ person_id | json_encode | safe }} },
           "publisher": { "@id": {{ person_id | json_encode | safe }} }{% if social_image_url %},
           "image": {{ social_image_url | json_encode | safe }}{% endif %},

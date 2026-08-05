@@ -4,10 +4,10 @@
 <section class="container">
   <a class="text-link back-link" href="/">Back home</a>
   <h1>{{ section.title }}</h1>
-  {% if section.taxonomies.tags %}
+  {% if section.taxonomies?.tags %}
     <div class="tags">
       {% for tag in section.taxonomies.tags %}
-        <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) | replace(from=config.base_url, to='') }}">{{ tag }}</a>
+        <a class="tag" href="{{ get_taxonomy_url(kind='tags', term=tag) | replace(from=config.base_url, to='') }}">{{ tag }}</a>
       {% endfor %}
     </div>
   {% endif %}
