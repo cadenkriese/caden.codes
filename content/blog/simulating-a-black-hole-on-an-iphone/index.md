@@ -18,10 +18,7 @@ This is a generic example post. It provides sample content that can be used to t
 
 Example posts are useful when a site needs realistic placeholder content. They help confirm that titles, descriptions, dates, tags, and body content render consistently across different templates.
 
-<figure>
-  {{ svg(path="images/example-wide-figure.svg") }}
-  <figcaption>A wide figure for checking article media alignment against the larger layout region. Testing even longer and longer and longer and longer and longer captions. Testing even longer and longer and longer and longer and longer captions.</figcaption>
-</figure>
+{{ <body_image page path="First_Image.webp" alt="The first black hole image rendered on an iPhone" caption="The first image produced by the black hole renderer." height="80svh" /> }}
 
 This section includes a few paragraphs of neutral text. The goal is to create enough structure for checking how the page behaves with headings, links, and standard paragraphs.
 
@@ -36,6 +33,8 @@ const formatted = items.map((item, index) => {
 
 console.log(formatted.join("\n"));
 ```
+
+{{ <body_image page path="Progress_Feb_9_2026.png" alt="Black hole renderer progress from February 9, 2026" caption="Renderer progress on February 9, 2026." height="80svh" /> }}
 
 You can replace this article with a real post later. Until then, it acts as a simple stand-in that keeps the blog section populated.
 
