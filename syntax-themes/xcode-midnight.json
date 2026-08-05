@@ -1,0 +1,106 @@
+{
+  "name": "xcode-midnight",
+  "displayName": "Xcode Midnight",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#000D12",
+    "editor.foreground": "#F2F3F8",
+    "editor.lineHighlightBackground": "#3A3420",
+    "editorLineNumber.foreground": "#F2F3F8"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "comment",
+        "punctuation.definition.comment",
+        "string.comment"
+      ],
+      "settings": {
+        "foreground": "#9BB8CD",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "keyword",
+        "storage",
+        "storage.modifier"
+      ],
+      "settings": {
+        "foreground": "#ABABFE"
+      }
+    },
+    {
+      "scope": "string",
+      "settings": {
+        "foreground": "#00DF6F"
+      }
+    },
+    {
+      "scope": [
+        "constant",
+        "constant.numeric",
+        "constant.language.boolean"
+      ],
+      "settings": {
+        "foreground": "#00D5CC"
+      }
+    },
+    {
+      "scope": [
+        "entity.name",
+        "entity.name.function",
+        "support.function"
+      ],
+      "settings": {
+        "foreground": "#25A8B7"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.type",
+        "entity.name.class",
+        "support.type",
+        "support.class"
+      ],
+      "settings": {
+        "foreground": "#00CFF0"
+      }
+    },
+    {
+      "scope": [
+        "variable",
+        "variable.parameter"
+      ],
+      "settings": {
+        "foreground": "#25A8B7"
+      }
+    },
+    {
+      "scope": [
+        "meta.property-name",
+        "variable.other.property",
+        "support.property-name",
+        "support.type.property-name"
+      ],
+      "settings": {
+        "foreground": "#6E93E6"
+      }
+    },
+    {
+      "scope": [
+        "punctuation",
+        "keyword.operator"
+      ],
+      "settings": {
+        "foreground": "#F2F3F8"
+      }
+    },
+    {
+      "scope": "punctuation.definition.string",
+      "settings": {
+        "foreground": "#00DF6F"
+      }
+    }
+  ]
+}

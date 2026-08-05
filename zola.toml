@@ -16,8 +16,12 @@ smart_punctuation = true
 
 [markdown.highlighting]
 style = "class"
-light_theme = "github-light"
-dark_theme = "github-dark"
+light_theme = "xcode-light"
+dark_theme = "xcode-midnight"
+extra_themes = [
+  "syntax-themes/xcode-light.json",
+  "syntax-themes/xcode-midnight.json",
+]
 
 [extra]
 github_url = "https://github.com/cadenkriese"

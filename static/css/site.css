@@ -594,6 +594,26 @@ article {
   }
 }
 
+.giallo-l {
+  display: inline-block;
+  min-height: 1lh;
+  width: 100%;
+}
+
+.giallo-ln {
+  display: inline-block;
+  min-width: 3ch;
+  margin-right: .4em;
+  padding-right: .4em;
+  text-align: right;
+  user-select: none;
+}
+
+.giallo mark {
+  display: block;
+  color: inherit;
+}
+
 .essay {
   --measure: 46ch;
   font-family: var(--font-serif);

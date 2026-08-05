@@ -7,9 +7,8 @@
 {% set is_essay = page.extra.essay | default(value=false) or content_kind == "essay" %}
 {% set parent_section = page.ancestors | last %}
 {% if parent_section == "blog/_index.md" and not is_essay %}
-<style>
-  {{ load_data(path="css/syntax-xcode.css") | safe }}
-</style>
+<link rel="stylesheet" href="/giallo-light.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="/giallo-dark.css" media="(prefers-color-scheme: dark)">
 {% endif %}
 {% endblock extra_head %}
 

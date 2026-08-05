@@ -1,0 +1,106 @@
+{
+  "name": "xcode-light",
+  "displayName": "Xcode Light",
+  "type": "light",
+  "colors": {
+    "editor.background": "#FFFFFF",
+    "editor.foreground": "#322529",
+    "editor.lineHighlightBackground": "#FFF4BF",
+    "editorLineNumber.foreground": "#B7B3B4"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "comment",
+        "punctuation.definition.comment",
+        "string.comment"
+      ],
+      "settings": {
+        "foreground": "#536579",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "keyword",
+        "storage",
+        "storage.modifier"
+      ],
+      "settings": {
+        "foreground": "#C4246E"
+      }
+    },
+    {
+      "scope": "string",
+      "settings": {
+        "foreground": "#CA2C1D"
+      }
+    },
+    {
+      "scope": [
+        "constant",
+        "constant.numeric",
+        "constant.language.boolean"
+      ],
+      "settings": {
+        "foreground": "#00837D"
+      }
+    },
+    {
+      "scope": [
+        "entity.name",
+        "entity.name.function",
+        "support.function"
+      ],
+      "settings": {
+        "foreground": "#00695C"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.type",
+        "entity.name.class",
+        "support.type",
+        "support.class"
+      ],
+      "settings": {
+        "foreground": "#00856F"
+      }
+    },
+    {
+      "scope": [
+        "variable",
+        "variable.parameter"
+      ],
+      "settings": {
+        "foreground": "#00695C"
+      }
+    },
+    {
+      "scope": [
+        "meta.property-name",
+        "variable.other.property",
+        "support.property-name",
+        "support.type.property-name"
+      ],
+      "settings": {
+        "foreground": "#00695C"
+      }
+    },
+    {
+      "scope": [
+        "punctuation",
+        "keyword.operator"
+      ],
+      "settings": {
+        "foreground": "#322529"
+      }
+    },
+    {
+      "scope": "punctuation.definition.string",
+      "settings": {
+        "foreground": "#CA2C1D"
+      }
+    }
+  ]
+}
