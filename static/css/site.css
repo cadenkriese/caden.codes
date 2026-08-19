@@ -615,7 +615,7 @@ article {
 }
 
 .essay {
-  --measure: 46ch;
+  --measure: 52ch;
   font-family: var(--font-serif);
   font-size: 1.1875rem;
   line-height: 1.6;
