@@ -3,6 +3,8 @@
 {% block title %}{{ page.title }}{% endblock title %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 {% block extra_head %}
+<!-- Social -->
+<meta name="fediverse:creator" content="@cadenkriese@mastodon.social">
 {% set content_kind = page.extra.kind | default(value="") %}
 {% set is_essay = page.extra.essay | default(value=false) or content_kind == "essay" %}
 {% set parent_section = page.ancestors | last %}
