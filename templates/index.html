@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block extra_head %}
+  <link rel="me" href="https://mastodon.social/@cadenkriese">
+{% endblock extra_head %}
+
 {% block content %}
 {% set blog = get_section(path="blog/_index.md") %}
 
