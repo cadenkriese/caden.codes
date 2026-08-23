@@ -594,6 +594,39 @@ article {
   }
 }
 
+.footnote-reference {
+  margin-inline-start: .08em;
+  font-family: var(--font-sans);
+  font-size: .72em;
+  line-height: 0;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.footnotes {
+  font-family: var(--font-sans);
+  font-size: .82rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+
+  ol {
+    margin: 0;
+    padding-inline-start: 2rem;
+  }
+
+  li {
+    padding-inline-start: .25rem;
+    scroll-margin-block-start: 2rem;
+    transition: background-color .2s;
+
+    &:target {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+  }
+}
+
 .giallo-l {
   display: inline-block;
   min-height: 1lh;
@@ -615,7 +648,7 @@ article {
 }
 
 .essay {
-  --measure: 52ch;
+  --measure: 50ch;
   font-family: var(--font-serif);
   font-size: 1.1875rem;
   line-height: 1.6;
