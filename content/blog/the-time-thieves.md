@@ -1,7 +1,7 @@
 +++
 title = "The Time Thieves"
 date = 2026-08-05T20:00:00
-description = ""
+description = "The pernicious cost of platforms' fight for our attention."
 [extra]
 kind = "essay"
 [taxonomies]
