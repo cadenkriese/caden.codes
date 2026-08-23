@@ -301,6 +301,7 @@ article > footer {
 }
 
 .section-title-small {
+  margin: 0;
   color: var(--muted);
   font-size: 1.1rem;
   line-height: 1.3;

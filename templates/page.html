@@ -73,19 +73,22 @@
   {% endif %}
 </article>
 
-{% if page.lower or page.higher %}
+{% set blog = get_section(path="blog/_index.md") %}
+{% if blog.pages | length > 1 %}
 <section class="container">
-  <h2 class="section-title-small">Recent Posts</h3>
+  <div class="section-heading">
+    <h2 class="section-title-small">Recent Posts</h2>
+    <a class="text-link" href="{{ blog.permalink | replace(from=config.base_url, to='') }}">All writing</a>
+  </div>
   <ul class="row-list">
-    {% if page.lower %}
-    {% set post = page.lower %}
-    {% set post_transition = false %}
-    {% include "partials/post-row.html" %}
-    {% elif page.higher %}
-    {% set post = page.higher %}
-    {% set post_transition = false %}
-    {% include "partials/post-row.html" %}
-    {% endif %}
+    {% set_global recent_post_count = 0 %}
+    {% for post in blog.pages %}
+      {% if post.permalink != page.permalink and recent_post_count < 3 %}
+        {% set post_transition = false %}
+        {% include "partials/post-row.html" %}
+        {% set_global recent_post_count = recent_post_count + 1 %}
+      {% endif %}
+    {% endfor %}
   </ul>
 </section>
 {% endif %}
