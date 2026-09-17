@@ -1,0 +1,42 @@
+.ray-diagram {
+  --ray-blue: light-dark(#316593, #7aadff);
+  --ray-yellow: light-dark(#936800, #e9c14f);
+  --ray-purple: light-dark(#7850aa, #bc9de5);
+}
+
+.ray-diagram-stage {
+  position: relative;
+  aspect-ratio: 5 / 3;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.ray-diagram-fallback {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font: 14px var(--font-sans);
+  fill: var(--text);
+  object-fit: contain;
+}
+
+.disk-key { color: var(--ray-blue); }
+.light-key { color: var(--ray-purple); }
+.intersection-key { color: var(--ray-yellow); }
+
+.ray-diagram-board {
+  /* JSXGraph sets position: relative inline; keep it over the fallback. */
+  position: absolute !important;
+  inset: 0;
+  color: var(--text);
+}
+
+.ray-diagram-board:not([hidden]) { visibility: hidden; }
+.ray-diagram.is-ready .ray-diagram-board { visibility: visible; }
+.ray-diagram.is-ready .ray-diagram-fallback { visibility: hidden; }
+
+@media (max-width: 600px) {
+  .ray-diagram-stage { aspect-ratio: 1; }
+}

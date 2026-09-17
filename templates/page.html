@@ -3,6 +3,12 @@
 {% block title %}{{ page.title }}{% endblock title %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 {% block extra_head %}
+{% if page.extra.jsxgraph | default(value=false) %}
+<link rel="stylesheet" href="/vendor/jsxgraph/1.13.3/jsxgraph.css">
+<link rel="stylesheet" href="/css/diagrams.css">
+<script defer src="/vendor/jsxgraph/1.13.3/jsxgraphcore.js"></script>
+<script defer src="/js/black-hole-diagrams.js"></script>
+{% endif %}
 <!-- Social -->
 <meta name="fediverse:creator" content="@cadenkriese@mastodon.social">
 {% set content_kind = page.extra.kind | default(value="") %}
