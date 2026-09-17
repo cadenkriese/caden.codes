@@ -551,7 +551,7 @@ article {
     overflow-x: auto;
     padding: 1rem 1.5rem;
     border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: 12px;
     background: var(--paper);
     
     code {
@@ -567,7 +567,7 @@ article {
     width: 100%;
     height: auto;
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 12px;
   }
 
   .body-image {
@@ -586,6 +586,59 @@ article {
     }
   }
   
+  .carousel {
+    --carousel-gap: 5%;
+
+    grid-column: 1 / -1;
+    justify-self: start;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    max-width: none;
+    margin-inline: 0;
+    min-width: 0;
+    display: flex;
+    gap: var(--carousel-gap);
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    padding: 0;
+    list-style: none;
+
+    &::before,
+    &::after {
+      content: "";
+      flex: 0 0 calc(10% - var(--carousel-gap));
+    }
+
+    > li {
+      flex: 0 0 80%;
+      min-width: 0;
+      scroll-snap-align: center;
+    }
+
+    .body-image {
+      width: 100%;
+      margin: 0;
+    }
+
+    .body-image img {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+      background: none;
+    }
+
+    figcaption {
+      margin-inline: 1rem;
+      font-size: .8em;
+      opacity: .75;
+      text-align: center;
+    }
+  }
+
   figcaption {
     margin: .6lh 4rem 0;
     color: var(--muted);

@@ -81,9 +81,9 @@ The traceRay function walks through Müller and Frauendiener’s method, working
 
 You can see the difference between our two versions. Mine has the very thin line along the horizon extend below the black hole as well, this represents light that 
 
-{{ <body_image page path="muller_frauendiener_fig4.webp" alt="Müller and Frauendiener’s grayscale rendering of a black hole and accretion disk." /> }}
+{{ <body_image page path="muller_frauendiener_fig4.webp" alt="Müller and Frauendiener’s grayscale rendering of a black hole and accretion disk." height="40svh" /> }}
 
-{{ <body_image page path="2026-09-16 at 17.18.12@2x.webp" alt="Gravitation rendering with a glowing accretion disk, a thin ring extending below the black hole, and a distorted starry background." /> }}
+{{ <body_image page path="2026-09-16 at 17.18.12@2x.webp" alt="Gravitation rendering with a glowing accretion disk, a thin ring extending below the black hole, and a distorted starry background." height="40svh" /> }}
 
 You can also see that mine renders a sky in the background. I extended Müller and Frauendiener’s system to not just check for if the light hits a disk but also find it’s total deflection is before it escapes to infinity using elliptic integrals. That could be a post of its own, so for now, we will move on.
 
@@ -110,9 +110,14 @@ For now, I relied on a pretty standard bloom algorithm by Jorge Jiminez that he 
 # Xcode’s Metal Debugger
 The Xcode engineers really outdid themselves with the Metal debugger. It’s truly phenomenal. I used it to debug countless floating point errors, performance regressions and to just generally understand the bottlenecks of my code.
 
+{% <carousel label="Xcode Metal debugger screenshots"> %}
+<li>
 {{ <body_image page path="xcode_debugger_shader_profiling.webp" alt="Xcode’s Metal shader profiler showing instruction costs alongside the rendered black hole." /> }}
-
+</li>
+<li>
 {{ <body_image page path="xcode_debugger_shader_timeline.webp" alt="Xcode’s GPU timeline showing calculateLensing taking 2.31 milliseconds, followed by bloom and tone mapping." /> }}
+</li>
+{% </carousel> %}
 
 In that photo you can see that the calculateLensing phase of the shader took 2.31ms while the window was at a resolution of 3110x1952, which I think is pretty fast!
 

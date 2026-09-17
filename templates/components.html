@@ -8,12 +8,12 @@
   <picture>
     <source
       type="image/avif"
-      srcset="{% set_global first = true %}{% for width in [480, 768, 1150] %}{% if width < display_width %}{% set image = resize_image(path=image_path, width=width, op='fit_width', format='avif', quality=75) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w{% set_global first = false %}{% endif %}{% endfor %}{% set image = resize_image(path=image_path, width=display_width, op='fit_width', format='avif', quality=75) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w"
+      srcset="{% set_global first = true %}{% for width in [480, 768, 1150, 2300] %}{% if width < metadata.width %}{% set image = resize_image(path=image_path, width=width, op='fit_width', format='avif', quality=75) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w{% set_global first = false %}{% endif %}{% endfor %}{% set image = resize_image(path=image_path, width=metadata.width, op='fit_width', format='avif', quality=75) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w"
       sizes="(max-width: 1150px) 100vw, 1150px"
     >
     <source
       type="image/webp"
-      srcset="{% set_global first = true %}{% for width in [480, 768, 1150] %}{% if width < display_width %}{% set image = resize_image(path=image_path, width=width, op='fit_width', format='webp', quality=88) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w{% set_global first = false %}{% endif %}{% endfor %}{% if not first %}, {% endif %}{{ fallback.url | safe }} {{ fallback.width }}w"
+      srcset="{% set_global first = true %}{% for width in [480, 768, 1150, 2300] %}{% if width < metadata.width %}{% set image = resize_image(path=image_path, width=width, op='fit_width', format='webp', quality=88) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w{% set_global first = false %}{% endif %}{% endfor %}{% set image = resize_image(path=image_path, width=metadata.width, op='fit_width', format='webp', quality=88) %}{% if not first %}, {% endif %}{{ image.url | safe }} {{ image.width }}w"
       sizes="(max-width: 1150px) 100vw, 1150px"
     >
     <img
@@ -28,3 +28,9 @@
   {% if caption %}<figcaption>{{ caption }}</figcaption>{% endif %}
 </figure>
 {% endcomponent body_image %}
+
+{% component carousel(label="Image carousel") %}
+<ul class="carousel" tabindex="0" aria-label="{{ label }}" role="list">
+  {{ body | safe }}
+</ul>
+{% endcomponent carousel %}
