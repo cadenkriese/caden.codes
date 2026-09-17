@@ -81,9 +81,9 @@ The traceRay function walks through Müller and Frauendiener’s method, working
 
 You can see the difference between our two versions. Mine has the very thin line along the horizon extend below the black hole as well, this represents light that 
 
-{{ <body_image page path="muller_frauendiener_fig4.webp" alt="Müller and Frauendiener’s grayscale rendering of a black hole and accretion disk." height="40svh" /> }}
+{{ <body_image page path="muller_frauendiener_figure.png" alt="A wide gray outer ring on a black background that bends over a black hole and a narrow inner semi-circle-like curve that outlines the top of the black hole." caption="Müller and Frauendiener's render." height="40svh" /> }}
 
-{{ <body_image page path="2026-09-16 at 17.18.12@2x.webp" alt="Gravitation rendering with a glowing accretion disk, a thin ring extending below the black hole, and a distorted starry background." height="40svh" /> }}
+{{ <body_image page path="higher_order_image_comparison.png" alt="A yellow-orange gas ring and an inner ring that fully curve around the black hole." caption="My render. Notice how the narrow inner ring forms a full circle in my version." height="40svh" /> }}
 
 You can also see that mine renders a sky in the background. I extended Müller and Frauendiener’s system to not just check for if the light hits a disk but also find it’s total deflection is before it escapes to infinity using elliptic integrals. That could be a post of its own, so for now, we will move on.
 
