@@ -14,9 +14,9 @@ tags = ["Programming"]
 
 When Double Negative VFX (DNEG) and Kip Thorne developed thei black hole renderer for the film Interstellar, performance was only a concern if individual frames took more than a few days to render on one of their 3,200 10-core CPUs. This is because their simulation was incredibly physically accurate in its depiction of the black hole and the camera optics that receive the altered light. Plus, they needed to render ~8K resolution frames for IMAX quality. 
 
-DNEG's renderer uses a numerical methods approach to calculate the bending of light, similar to Euler’s method. For each of the 23 million pixels in an IMAX frame, they take tiny steps and then calculate what the light’s new direction is and then take another tiny step and repeat it hundreds or thousands of times, which is why it can take several hours to render a frame. 
+DNEG's renderer uses a numerical methods approach to calculate the bending of light, similar to Euler’s method. For each of the 23 million pixels in an IMAX frame, they take tiny steps and then calculate what the light’s new direction is and then take another tiny step and repeat it hundreds or thousands of times, which is why it can take several hours to render a frame.[^james]
 
-Thomas Müller and Jörg Frauendiener took a different approach. Müller and Frauendiener sacrifice some realism and use creative math to reduce the computation time significantly. Specifically, they model a nonspinning black hole, unlike the one in Interstellar which is very much spinning. That choice simplifies things a lot because non-spinning blackholes are spherically symmetric.
+Thomas Müller and Jörg Frauendiener took a different approach.[^muller] Müller and Frauendiener sacrifice some realism and use creative math to reduce the computation time significantly. Specifically, they model a nonspinning black hole, unlike the one in Interstellar which is very much spinning. That choice simplifies things a lot because non-spinning blackholes are spherically symmetric.
 
 <div class="figure-pair">
 
@@ -90,7 +90,7 @@ You can also see that mine renders a sky in the background. I extended Müller a
 ## Colors
 Accretion disks are hot. Fried-by-gamma-rays-if-you’re-in-the-same-solar-system-hot. My depiction of an accretion disk is where this project shifts from pure realism to a blend of realism and artistic interpretation. It is slightly less realistic but dramatically more artistic to imagine an accretion disk not as blazing hot as most really are but as a “cool” 2,000–3,000 ºK. This is the same kind of ‘anemic’ accretion disk seen in Interstellar. 
 
-Originally, I followed Kip Thorne’s equation for a quartic curve describing the flux along the radius of the accretion disk but I thought it looked too uniform so I went artistic there too and used a random formula I thought looked nice. For the colors themselves, I use the technique described by Dan Bruton to simulate what colors our eyes see from a black-body radiating at a given temperature. 
+Originally, I followed Kip Thorne’s equation for a quartic curve describing the flux along the radius of the accretion disk but I thought it looked too uniform so I went artistic there too and used a random formula I thought looked nice. For the colors themselves, I use the technique described by Dan Bruton to simulate what colors our eyes see from a black-body radiating at a given temperature.[^bruton]
 
 However, I got inspired by interstellar to try to simulate what a Kodak film camera would see, instead of our eyes, which is the look I settled on. To do that, I had to hand-trace Kodak’s published spectral sensitivity curves for an old film stock, the EXR 50D Film / 5245. Here is a comparison between what the human eye sees and the Kodak film:
 
@@ -105,7 +105,7 @@ As an aside, the texture of the accretion disk, like everything that looks cool 
 ## Bloom
 Bloom makes the accretion disk look like it’s glowing. In a camera this happens because of imperfections in the lenses allowing light to bounce around (instead of just bending), the light bounces and spreads out creating a charactaristic glare, veil or lens flare. This can be computed analytically by tracing light paths in simulated camera optics, but I didn’t go that far, yet. Maybe in the future!
 
-For now, I relied on a pretty standard bloom algorithm by Jorge Jiminez that he made while working at Activision.
+For now, I relied on a pretty standard bloom algorithm by Jorge Jimenez that he made while working at Activision.[^jimenez]
 
 ## Xcode’s Metal Debugger
 The Xcode engineers really outdid themselves with the Metal debugger. It’s truly phenomenal. I used it to debug countless floating point errors, performance regressions and to just generally understand the bottlenecks of my code.
@@ -123,3 +123,13 @@ In the second photo you can see that the `calculateLensing` phase of the shader 
 
 ## What’s next?
 I will release Gravitation on the app store soon! After that, for a Mac version I will add an option to export videos so people can make their own physically accurate animated wallpapers or footage to use for whatever. I might also explore more integration with the SwiftUI animation system to power keyframes or camera paths. There is plenty more that can be done to improve the physical accuracy, a higher resolution background, star rendering, motion blur, the doppler effect, etc. They’re all very exciting prospects, but I’m not sure which ones I will decide to implement. Only time will tell!
+
+## References
+
+[^muller]: Müller, Thomas, and Jörg Frauendiener. “Interactive Visualization of a thin disc around a Schwarzschild black hole.” <https://doi.org/10.48550/arXiv.1206.4259>.
+
+[^james]: James, Oliver, Eugenie von Tunzelmann, Paul Franklin, and Kip S. Thorne. “Gravitational Lensing by Spinning Black Holes in Astrophysics, and in the Movie Interstellar.” <https://doi.org/10.48550/arXiv.1502.03808>.
+
+[^bruton]: Bruton, Dan. “Color Science.” <http://www.midnightkite.com/color.html>.
+
+[^jimenez]: Jimenez, Jorge. “Next Generation Post Processing Effects.” <https://www.iryoku.com/next-generation-post-processing-in-call-of-duty-advanced-warfare/>.
