@@ -30,7 +30,17 @@
 {% endcomponent body_image %}
 
 {% component carousel(label="Image carousel") %}
-<ul class="carousel" tabindex="0" aria-label="{{ label }}" role="list">
-  {{ body | safe }}
-</ul>
+<div class="carousel-container" role="region" aria-label="{{ label }}">
+  <ul class="carousel" tabindex="0" aria-label="{{ label }}" role="list">
+    {{ body | safe }}
+  </ul>
+  <div class="carousel-controls" hidden>
+    <button type="button" class="carousel-previous" aria-label="Previous image" disabled>
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
+    </button>
+    <button type="button" class="carousel-next" aria-label="Next image" disabled>
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+    </button>
+  </div>
+</div>
 {% endcomponent carousel %}

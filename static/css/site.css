@@ -586,9 +586,7 @@ article {
     }
   }
   
-  .carousel {
-    --carousel-gap: 5%;
-
+  .carousel-container {
     grid-column: 1 / -1;
     justify-self: start;
     position: relative;
@@ -598,11 +596,20 @@ article {
     max-width: none;
     margin-inline: 0;
     min-width: 0;
+  }
+
+  .carousel {
+    --carousel-gap: 5%;
+
+    width: 100%;
+    margin: 0;
+    min-width: 0;
     display: flex;
     gap: var(--carousel-gap);
     overflow-x: auto;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
+    &.is-animating { scroll-snap-type: none; }
     padding: 0;
     list-style: none;
 
@@ -636,6 +643,48 @@ article {
       font-size: .8em;
       opacity: .75;
       text-align: center;
+    }
+  }
+
+  .carousel-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: .5rem;
+    margin: 1rem 10% 0;
+
+    &[hidden] { display: none; }
+
+    button {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: var(--paper);
+      color: var(--text);
+      cursor: pointer;
+
+      transition: opacity 240ms ease-in-out, background-color 240ms ease-in-out;
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+
+      &:hover:not(:disabled) { background: var(--soft); }
+      &:disabled {
+        opacity: .3;
+        cursor: default;
+      }
+    }
+
+    svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
   }
 
