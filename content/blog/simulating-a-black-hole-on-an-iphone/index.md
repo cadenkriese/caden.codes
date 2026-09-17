@@ -34,7 +34,7 @@ In 2012, Müller and Frauendiener wrote that their code could run at 400 FPS (2.
 
 Unfortunately, Müller and Frauendiener’s source code seemed to be lost to time on the University of Stuttgart website. I was persistent, though and I compared the broken download link for this project’s source to other working download links from the website. Miraculously, I guessed the correct URL and downloaded their source code. It helped tremendously to see how they implement the Jacobi elliptic functions with complex variables.
 
-Ultimately, though, my implementation of those functions ended up very different. I heavily relied on the NIST Digital Library of Mathematical Functions, especially Chapter 22, to implement my version.
+Ultimately, though, my implementation of those functions ended up very different. I heavily relied on the NIST Digital Library of Mathematical Functions, especially Chapter 22, to implement my version.[^dlmf]
 
 ## Metal
 I wanted to learn C++ and Apple has been pushing metal-cpp for a while now so I went with that. It would have been simper to use Swift for everything, but I learned a lot about ARC and MRR from using metal-cpp, and I get the placebo that it’s faster because it’s written in C++.
@@ -125,6 +125,8 @@ In the second photo you can see that the `calculateLensing` phase of the shader 
 I will release Gravitation on the app store soon! After that, for a Mac version I will add an option to export videos so people can make their own physically accurate animated wallpapers or footage to use for whatever. I might also explore more integration with the SwiftUI animation system to power keyframes or camera paths. There is plenty more that can be done to improve the physical accuracy, a higher resolution background, star rendering, motion blur, the doppler effect, etc. They’re all very exciting prospects, but I’m not sure which ones I will decide to implement. Only time will tell!
 
 ## References
+
+[^dlmf]: Reinhardt, W. P., and P. L. Walker. “Jacobian Elliptic Functions.” NIST Digital Library of Mathematical Functions, Chapter 22. <https://dlmf.nist.gov/22>.
 
 [^muller]: Müller, Thomas, and Jörg Frauendiener. “Interactive Visualization of a thin disc around a Schwarzschild black hole.” <https://doi.org/10.48550/arXiv.1206.4259>.
 
