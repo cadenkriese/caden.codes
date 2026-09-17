@@ -19,13 +19,11 @@ DNEG's renderer uses a numerical methods approach to calculate the bending of li
 
 Thomas Müller and Jörg Frauendiener took a different approach. Müller and Frauendiener sacrifice some realism and use creative math to reduce the computation time significantly. Specifically, they model a nonspinning black hole, unlike the one in Interstellar which is very much spinning. That choice simplifies things a lot because non-spinning blackholes are spherically symmetric.
 
-{{ <body_image page path="kerr_schwarzschild_comparison.png" alt="Side-by-side Kerr and Schwarzschild black-hole renderings with differently distorted background stars." /> }}
+{{ <body_image page path="kerr_schwarzschild_comparison.png" alt="Two photos side-by-side. The left is a black hole with an oblong shape and a heavily distorted sky. The right is a perfectly spherical shape hole with a similarly distorted sky." caption="Left: A spinning black hole rendered in SpaceEngine. Notice its oblong shape. Right: A nonspinning black hole rendered in my app, Gravitation." /> }}
 
 The creative math in Müller and Frauendiener’s paper comes from capitalizing on this symmetry by confining each ray of light to a plane, and then finding the line where that plane intersects the accretion disk, the ring of swirling hot gas around a black hole that gives it its characteristic glowing look.
 
 Confining each ray of light to a plane turns the 3D problem into a 2D one. They ask: Where does the curve of light intersect the line that represents the accretion disk? And solve it using elliptic functions.
-
-{{ <ray_direction /> }} 
 
 In 2012, Müller and Frauendiener wrote that their code could run at 400 FPS (2.5ms per frame) at a resolution of 1,000 x 1,000 on a GTX 480. That was exiciting to read because I knew if it could do that in 2012 it could run on an iPhone today.
 
@@ -75,9 +73,9 @@ float3 color = shadeResult(result, ray.direction, state, temperature, noise, sky
 
 output.write(float4(color, 1.f), position);
 ```
-So, what does each section really do? I already touched on the geometry setup; it calculates the line of intersection between the plane of the accretion disk and the plane of the light ray.
+So, what does each section really do? I already touched on the geometry setup step, `makeRay`; it calculates the line of intersection between the plane of the accretion disk and the plane of the light ray.
 
-Most ray tracers work backwards, tracing light from the destination to the source, and mine is no exception. This is convenient because if you started from the source you would have no gauruntee that the light would reach the camera, but if you start from the camera, you can find which source it came from (or didn’t come from because it’s a black hole after all) and then decide what color it should be.
+Most ray tracers work backwards, tracing light from the destination to the source. Mine is no exception. This is convenient because if you started from the source you would have no gauruntee that the light would reach the camera, but if you start from the camera, you can find which source it came from (or didn’t come from because it’s a black hole after all) and then decide what color it should be.
 
 The traceRay function walks through Müller and Frauendiener’s method, working backwards with rays coming from the camera. However, my implementation differs in a few key ways. First, their code only checks if the light intersects the disk immediately, which isn’t fully correct. In this extreme gravitational environment, light can wrap around the black hole one or more times before hitting the disk after one or more orbit, so my code checks for intersections in the first orbit and a half. After that, there isn’t much difference. 
 
@@ -90,17 +88,15 @@ You can see the difference between our two versions. Mine has the very thin line
 You can also see that mine renders a sky in the background. I extended Müller and Frauendiener’s system to not just check for if the light hits a disk but also find it’s total deflection is before it escapes to infinity using elliptic integrals. That could be a post of its own, so for now, we will move on.
 
 # Colors
-Accretion disks are hot. Fried-by-gamma-rays-if-you’re-in-the-same-solar-system-hot. My depiction of an accretion disk is where this project shifts from pure realism to a blend of realism and artistic interpretation. It is slightly less realistic but dramatically more artistic to imagine an accretion disk not as blazing hot as most really are but as a “cool” 2-3,000ºK. This is the same kind of ‘anemic’ accretion disk seen in Interstellar. 
+Accretion disks are hot. Fried-by-gamma-rays-if-you’re-in-the-same-solar-system-hot. My depiction of an accretion disk is where this project shifts from pure realism to a blend of realism and artistic interpretation. It is slightly less realistic but dramatically more artistic to imagine an accretion disk not as blazing hot as most really are but as a “cool” 2,000–3,000 ºK. This is the same kind of ‘anemic’ accretion disk seen in Interstellar. 
 
 Originally, I followed Kip Thorne’s equation for a quartic curve describing the flux along the radius of the accretion disk but I thought it looked too uniform so I went artistic there too and used a random formula I thought looked nice. For the colors themselves, I use the technique described by Dan Bruton to simulate what colors our eyes see from a black-body radiating at a given temperature. 
 
-However, I got inspired by interstellar to try to simulate what a Kodak film camera would see, instead of our eyes, which is the look I settled on. To do that, I had to hand-trace Kodak’s published spectral sensitivity curves for an old film stock. The difference is pretty striking, though:
+However, I got inspired by interstellar to try to simulate what a Kodak film camera would see, instead of our eyes, which is the look I settled on. To do that, I had to hand-trace Kodak’s published spectral sensitivity curves for an old film stock, the EXR 50D Film / 5245. Here is a comparison between what the human eye sees and the Kodak film:
 
-{{ <body_image page path="CIE_LUT.png" alt="CIE color lookup table transitioning from red and orange through white to pale blue." /> }}
+{{ <body_image page path="CIE_LUT.png" alt="A color gradient starting with a deep red that gradually becomes a white and then a blue." caption="Colors emitted by black body radiation from 1,000 ºK to 10,000 ºK rendered with the CIE 1931 Colour-Matching Functions in Display P3 with a D65 white point."/> }}
 
-{{ <body_image page path="Kodak_LUT.png" alt="Kodak color lookup table transitioning from warm orange through cream to white." /> }}
-
-To be honest, I may have made a major mistake here and my colors could be completely wrong, I’m not 100% sure one way or the other.
+{{ <body_image page path="Kodak_LUT.png" alt="A color gradient starting with a lighter orange that slowly becomes a white and then an incredibly pale blue." caption="Colors emitted by black body radiation from 1,000 ºK to 10,000 ºK rendered with the Kodak spectral sensitivity curves for EXR 50D Film / 5245." /> }}
 
 As an aside, the texture of the accretion disk, like everything that looks cool in computer graphics, is just layered noise textures. You can see it start to stretch as the image we see begins to bend over the top of the horizon:
 

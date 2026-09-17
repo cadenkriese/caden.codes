@@ -28,18 +28,3 @@
   {% if caption %}<figcaption>{{ caption }}</figcaption>{% endif %}
 </figure>
 {% endcomponent body_image %}
-
-{% component ray_direction() %}
-<figure class="ray-diagram" aria-labelledby="ray-direction-caption">
-  <div class="ray-diagram-stage">
-    <svg class="ray-diagram-fallback" viewBox="0 0 600 360" role="img" aria-labelledby="plane-fallback-title">
-      <title id="plane-fallback-title">A blue disk plane and a violet light plane intersect along a gold line.</title>
-      <ellipse cx="300" cy="180" rx="145" ry="120" fill="var(--ray-blue)" fill-opacity=".13" stroke="var(--ray-blue)" />
-      <path d="M90 235L285 60L510 125L315 300Z" fill="var(--ray-purple)" fill-opacity=".13" stroke="var(--ray-purple)" />
-      <path d="M167 222L433 138" stroke="var(--ray-yellow)" stroke-width="4" />
-    </svg>
-    <div id="ray-direction" class="ray-diagram-board" hidden></div>
-  </div>
-  <figcaption id="ray-direction-caption"><span class="plane-key disk-key">Disk plane</span> · <span class="plane-key light-key">Light plane</span> · <span class="plane-key intersection-key">Line of intersection</span></figcaption>
-</figure>
-{% endcomponent ray_direction %}
