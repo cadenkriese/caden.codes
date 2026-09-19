@@ -17,60 +17,35 @@ document.querySelectorAll('.carousel-container').forEach((container) => {
   }
 
   function update() {
-    const positions = offsets();
-    previous.disabled = positions[0] >= -1;
-    next.disabled = positions[positions.length - 1] <= 1;
+    const viewport = carousel.getBoundingClientRect();
+    const center = viewport.left + viewport.width / 2;
+    const first = slides[0].getBoundingClientRect();
+    const last = slides[slides.length - 1].getBoundingClientRect();
+    previous.disabled = first.left + first.width / 2 - center >= -1;
+    next.disabled = last.left + last.width / 2 - center <= 1;
   }
 
-  let animationFrame = null;
-  let queuedDirection = 0;
+  let targetIndex = null;
 
   function stopAnimation() {
-    cancelAnimationFrame(animationFrame);
-    animationFrame = null;
-    queuedDirection = 0;
-    carousel.classList.remove('is-animating');
+    if (targetIndex === null) return;
+    targetIndex = null;
+    carousel.scrollTo({ left: carousel.scrollLeft, behavior: 'instant' });
+    update();
   }
 
   function advance(direction) {
-    // Finish the current easing curve before processing another button press.
-    if (animationFrame !== null) {
-      queuedDirection = direction;
-      return;
-    }
     const positions = offsets();
-    const current = positions.reduce((nearest, offset, index) =>
+    const current = targetIndex ?? positions.reduce((nearest, offset, index) =>
       Math.abs(offset) < Math.abs(positions[nearest]) ? index : nearest, 0);
-    const target = Math.max(0, Math.min(slides.length - 1, current + direction));
-    const distance = positions[target];
-    if (reducedMotion.matches || Math.abs(distance) < 1) {
-      carousel.scrollBy({ left: distance, behavior: 'instant' });
+    targetIndex = Math.max(0, Math.min(slides.length - 1, current + direction));
+    const distance = positions[targetIndex];
+    const instant = reducedMotion.matches || Math.abs(distance) < 1;
+    carousel.scrollBy({ left: distance, behavior: instant ? 'instant' : 'smooth' });
+    if (instant) {
+      targetIndex = null;
       update();
-      return;
     }
-
-    const start = carousel.scrollLeft;
-    const startTime = performance.now();
-    const duration = 400;
-    carousel.classList.add('is-animating');
-
-    function frame(now) {
-      const t = Math.min(1, (now - startTime) / duration);
-      // Quintic smoothstep: velocity and acceleration are zero at both ends.
-      const eased = t * t * t * (10 + t * (-15 + 6 * t));
-      carousel.scrollTo({ left: start + distance * eased, behavior: 'instant' });
-      if (t < 1) {
-        animationFrame = requestAnimationFrame(frame);
-      } else {
-        animationFrame = null;
-        carousel.classList.remove('is-animating');
-        update();
-        const queued = queuedDirection;
-        queuedDirection = 0;
-        if (queued) advance(queued);
-      }
-    }
-    animationFrame = requestAnimationFrame(frame);
   }
 
   previous.addEventListener('click', () => advance(-1));
@@ -84,7 +59,11 @@ document.querySelectorAll('.carousel-container').forEach((container) => {
       update();
     });
   }, { passive: true });
-  // Direct interaction takes control immediately; native snapping resumes.
+  carousel.addEventListener('scrollend', () => {
+    targetIndex = null;
+    update();
+  });
+  // Direct interaction takes control from button navigation.
   ['pointerdown', 'touchstart', 'wheel', 'keydown'].forEach((event) => {
     carousel.addEventListener(event, stopAnimation, { passive: true });
   });
@@ -94,6 +73,8 @@ document.querySelectorAll('.carousel-container').forEach((container) => {
     update();
   });
   resizeObserver.observe(carousel);
+  resizeObserver.observe(slides[0]);
+  resizeObserver.observe(slides[slides.length - 1]);
   controls.hidden = false;
   update();
 });

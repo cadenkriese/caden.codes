@@ -628,31 +628,31 @@ article {
     overflow-x: auto;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
-    &.is-animating { scroll-snap-type: none; }
     padding: 0;
     list-style: none;
 
     &::before,
     &::after {
       content: "";
-      flex: 0 0 calc(10% - var(--carousel-gap));
+      flex: 0 0 calc(50% - var(--carousel-gap));
     }
 
     > li {
-      flex: 0 0 80%;
+      flex: 0 0 auto;
       min-width: 0;
       scroll-snap-align: center;
     }
 
     .body-image {
-      width: 100%;
+      width: min-content;
       margin: 0;
     }
 
     .body-image img {
-      width: 100%;
+      width: auto;
+      max-width: 80vw;
       height: auto;
-      max-height: none;
+      max-height: var(--carousel-max-height, none);
       object-fit: contain;
       background: none;
     }
@@ -689,7 +689,7 @@ article {
       color: var(--text);
       cursor: pointer;
 
-      transition: opacity 240ms ease-in-out, background-color 240ms ease-in-out;
+      transition: opacity 170ms ease-in-out, background-color 170ms ease-in-out;
 
       @media (prefers-reduced-motion: reduce) {
         transition: none;

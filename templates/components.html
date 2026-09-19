@@ -29,8 +29,8 @@
 </figure>
 {% endcomponent body_image %}
 
-{% component carousel(label="Image carousel") %}
-<div class="carousel-container" role="region" aria-label="{{ label }}">
+{% component carousel(label="Image carousel", max_height=None) %}
+<div class="carousel-container" role="region" aria-label="{{ label }}"{% if max_height %} style="--carousel-max-height: {{ max_height }};"{% endif %}>
   <ul class="carousel" tabindex="0" aria-label="{{ label }}" role="list">
     {{ body | safe }}
   </ul>

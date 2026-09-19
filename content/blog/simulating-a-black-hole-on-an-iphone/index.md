@@ -100,7 +100,7 @@ For now, I relied on a pretty standard bloom algorithm by Jorge Jimenez that he 
 ## Debugging
 The Xcode engineers really outdid themselves with the Metal debugger. It’s truly phenomenal. I used it to debug countless floating point errors, performance regressions and to just generally understand the bottlenecks of my code.
 
-{% <carousel label="Xcode Metal debugger screenshots"> %}
+{% <carousel label="Xcode Metal debugger screenshots" max_height="70svh"> %}
 <li>
 {{ <body_image page path="xcode_debugger_shader_profiling.webp" alt="Xcode’s Metal shader profiler showing instruction costs alongside the rendered black hole." /> }}
 </li>
