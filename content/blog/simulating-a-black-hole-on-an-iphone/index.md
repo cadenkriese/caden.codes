@@ -35,9 +35,7 @@ I went to the University of Stuttgart website to download Müller and Frauendien
 Ultimately, though, my implementation of those functions ended up very different. I heavily relied on the NIST Digital Library of Mathematical Functions, especially Chapter 22, to implement my version.[^dlmf]
 
 ## Metal
-I chose to write my rendering code in C++ using metal-cpp.
-
-The graphics programming part of this project is actually very simple, which is great for a first-timer! Much of the complexity of graphics programming comes from coaxing the CPU and GPU into communicating with each other, but in this case the handoff is clear and simple: the CPU says “please draw the black hole” and the GPU replies, “okay here is the image of the black hole.” That’s about it. Compared to a game engine that has to track dozens or hundreds of entities, and exactly what the GPU needs to do to render all of them, this is pretty simple.
+Much of the complexity of graphics programming comes from coaxing the CPU and GPU into communicating with each other, but for my renderer the handoff is clear and simple: the CPU says, “Please draw the black hole.” and the GPU replies, “Okay, here is the image of the black hole.” That’s about it. The code below is written in C++ using metal-cpp.
 
 ```C++
 // Please draw the black hole!
@@ -48,22 +46,16 @@ pComputeEncoder->dispatchThreads(
     MTL::Size(16, 16, 1));
 ```
 
-Then, to wait for the GPUs response, I use a MTLSharedEvent:
-
 ```C++
-// Wait for the GPU to say, “Okay, I drew the black hole!”
-++_pacingTimeStampIndex;
-int frameIndex = _pacingTimeStampIndex % kMaxFramesInFlight;
-// Render the first frames as fast as possible, then use the MTLSharedEvent
-// to ensure we don't get out of sync with the GPU.
-if (_pacingTimeStampIndex > kMaxFramesInFlight) {
-    uint64_t const timeStampToWait = _pacingTimeStampIndex - kMaxFramesInFlight;
+// If we are more than 3 frames ahead of the GPU, wait for it.
+if (_pacingTimeStampIndex > 3) {
+    uint64_t const timeStampToWait = _pacingTimeStampIndex - 3;
     _pPacingEvent->waitUntilSignaledValue(timeStampToWait, DISPATCH_TIME_FOREVER);
 }
 ```
 
 ## Shaders
-The real complexity comes in the shader itself, the “lensing pipeline.”  That pipeline has three distinct phases: geometry setup, lensing calculation and color calculation. My code is abstracted to match those phases, as seen here:
+When the GPU executes the lensing pipeline, it runs my compute shader. My compute shader takes the pixel coordinates, window size, black hole paramaters and camera position as input, and outputs a color. I organized the shader into three parts: geometry setup, lensing calculation and color calculation.
 ```C++
 Ray ray = makeRay(position, viewport, camera);
 TraceResult result = traceRay(ray, schwarzschildRadius, disk);
