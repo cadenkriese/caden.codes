@@ -586,6 +586,24 @@ article {
     }
   }
   
+  .body-image-prominent {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-self: start;
+    width: min(100vw, 1920px);
+    max-width: none;
+
+    img {
+      width: 100%;
+      border-radius: 0;
+
+      @media (width > 1920px) {
+        border-radius: 12px;
+      }
+    }
+  }
+
   .figure-pair {
     grid-column: 1 / -1;
     width: min(1150px, 100%);
