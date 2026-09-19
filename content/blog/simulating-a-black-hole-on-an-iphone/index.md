@@ -12,32 +12,30 @@ header_image_alt = ""
 tags = ["Programming"]
 +++
 
-When Double Negative VFX (DNEG) and Kip Thorne developed thei black hole renderer for the film Interstellar, performance was only a concern if individual frames took more than a few days to render on one of their 3,200 10-core CPUs. This is because their simulation was incredibly physically accurate in its depiction of the black hole and the camera optics that receive the altered light. Plus, they needed to render ~8K resolution frames for IMAX quality. 
+When Double Negative VFX (DNEG) and Kip Thorne developed the black hole renderer for the film *Interstellar*, performance was only a concern if individual frames took more than a few days to render on one of their 3,200 10-core CPUs. Their code was incredibly physically accurate in how it simulated the black hole and the camera optics that receive the distorted light. They also needed to render at ~8K resolution for IMAX quality, hence the long frame render times. 
 
-DNEG's renderer uses a numerical methods approach to calculate the bending of light, similar to Euler’s method. For each of the 23 million pixels in an IMAX frame, they take tiny steps and then calculate what the light’s new direction is and then take another tiny step and repeat it hundreds or thousands of times, which is why it can take several hours to render a frame.[^james]
+DNEG and Thorne use numerical methods, similar to Euler's method, to calculate the bending of light. For each of the 23 million pixels in an IMAX frame, they take one tiny step in the direction of the light, calculate the new direction of the light, and then take another tiny step. They do this hundreds or thousands of times for each pixel, which is why it can take several hours to render a frame.[^james]
 
-Thomas Müller and Jörg Frauendiener took a different approach.[^muller] Müller and Frauendiener sacrifice some realism and use creative math to reduce the computation time significantly. Specifically, they model a nonspinning black hole, unlike the one in Interstellar which is very much spinning. That choice simplifies things a lot because non-spinning blackholes are spherically symmetric.
+Thomas Müller and Jörg Frauendiener took a different approach in their 2012 paper, *Interactive visualization of a thin disc around a Schwarzschild black hole*.[^muller] Müller and Frauendiener sacrifice some realism and use creative math to reduce the computation time significantly. Specifically, they model a nonspinning black hole, unlike the one in *Interstellar*, which is very much spinning. That choice simplifies the math because non-spinning blackholes are spherically symmetric.
 
 <div class="figure-pair">
+{{ <body_image page path="kerr.png" alt="An oblong black hole surrounded by a heavily distorted sky." caption="A spinning black hole. Notice its elongated shape. (Image: SpaceEngine)" /> }}
 
-{{ <body_image page path="kerr.png" alt="An oblong black hole surrounded by a heavily distorted sky." caption="A spinning black hole rendered in SpaceEngine. Notice its oblong shape." /> }}
-
-{{ <body_image page path="schwarzschild.png" alt="A spherical black hole surrounded by a distorted sky." caption="A nonspinning black hole rendered in my app, Gravitation." /> }}
-
+{{ <body_image page path="schwarzschild.png" alt="A spherical black hole surrounded by a distorted sky." caption="A nonspinning black hole. Rendered in my app, Gravitation." /> }}
 </div>
 
-The creative math in Müller and Frauendiener’s paper comes from capitalizing on this symmetry by confining each ray of light to a plane, and then finding the line where that plane intersects the accretion disk, the ring of swirling hot gas around a black hole that gives it its characteristic glowing look.
+The creative math in Müller and Frauendiener’s paper is how they use this symmetry to confine each ray of light into a plane. They then find the line of intersection between that plane and the *accretion disk*, the ring of swirling hot gas around a black hole that gives it its characteristic glowing look.
 
-Confining each ray of light to a plane turns the 3D problem into a 2D one. They ask: Where does the curve of light intersect the line that represents the accretion disk? And solve it using elliptic functions.
+Confining each ray of light in a plane turns the 3D problem into a 2D one. They ask: Where does the path of the light intersect the line that represents the accretion disk? And solve it using elliptic functions.
 
-In 2012, Müller and Frauendiener wrote that their code could run at 400 FPS (2.5ms per frame) at a resolution of 1,000 x 1,000 on a GTX 480. That was exiciting to read because I knew if it could do that in 2012 it could run on an iPhone today.
+In 2012, Müller and Frauendiener wrote that their code could run at 400 FPS (2.5ms per frame) at a resolution of 1,000 x 1,000 on a GTX 480. If it could run that well on 2012 hardware, I knew it could run on an iPhone today.
 
-Unfortunately, Müller and Frauendiener’s source code seemed to be lost to time on the University of Stuttgart website. I was persistent, though and I compared the broken download link for this project’s source to other working download links from the website. Miraculously, I guessed the correct URL and downloaded their source code. It helped tremendously to see how they implement the Jacobi elliptic functions with complex variables.
+I went to the University of Stuttgart website to download Müller and Frauendiener’s original source code linked with their paper, but only found broken links. I compared the broken download link for this project to other working download links from the website and, miraculously, I guessed the correct URL and downloaded their source code. It was a tremendous help for me to see how they implement the Jacobi elliptic functions with complex variables.
 
 Ultimately, though, my implementation of those functions ended up very different. I heavily relied on the NIST Digital Library of Mathematical Functions, especially Chapter 22, to implement my version.[^dlmf]
 
 ## Metal
-I wanted to learn C++ and Apple has been pushing metal-cpp for a while now so I went with that. It would have been simper to use Swift for everything, but I learned a lot about ARC and MRR from using metal-cpp, and I get the placebo that it’s faster because it’s written in C++.
+I chose to write my rendering code in C++ using metal-cpp.
 
 The graphics programming part of this project is actually very simple, which is great for a first-timer! Much of the complexity of graphics programming comes from coaxing the CPU and GPU into communicating with each other, but in this case the handoff is clear and simple: the CPU says “please draw the black hole” and the GPU replies, “okay here is the image of the black hole.” That’s about it. Compared to a game engine that has to track dozens or hundreds of entities, and exactly what the GPU needs to do to render all of them, this is pretty simple.
 
@@ -107,7 +105,7 @@ Bloom makes the accretion disk look like it’s glowing. In a camera this happen
 
 For now, I relied on a pretty standard bloom algorithm by Jorge Jimenez that he made while working at Activision.[^jimenez]
 
-## Xcode’s Metal Debugger
+## Debugging
 The Xcode engineers really outdid themselves with the Metal debugger. It’s truly phenomenal. I used it to debug countless floating point errors, performance regressions and to just generally understand the bottlenecks of my code.
 
 {% <carousel label="Xcode Metal debugger screenshots"> %}
