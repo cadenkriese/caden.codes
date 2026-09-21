@@ -585,6 +585,14 @@ article {
       margin-inline: 0;
     }
   }
+
+  @media (max-width: 1150px) {
+    > img,
+    > figure img,
+    > figure > svg {
+      border-radius: 0;
+    }
+  }
   
   .body-image-prominent {
     position: relative;
@@ -620,6 +628,10 @@ article {
 
     @media (max-width: 600px) {
       grid-template-columns: 1fr;
+
+      img {
+        border-radius: 0;
+      }
     }
   }
 
