@@ -78,7 +78,7 @@ You can see the difference between our two versions. Mine has the very thin line
 You can also see that mine renders a sky in the background.[^dneg-backgrounds] I extended Müller and Frauendiener’s system to not just check for if the light hits a disk but also find it’s total deflection is before it escapes to infinity using elliptic integrals. That could be a post of its own, so for now, we will move on.
 
 ## Colors
-Accretion disks are hot. Fried-by-gamma-rays-if-you’re-in-the-same-solar-system-hot. My depiction of an accretion disk is where this project shifts from pure realism to a blend of realism and artistic interpretation. In my opinion, it is slightly less realistic but significantly more artistic to imagine an accretion disk not as blazing hot a “cool” 2,000–3,000 ºK. This is the same kind of ‘anemic’ accretion disk seen in Interstellar.  Originally, I followed Kip Thorne’s equation describing the flux along the radius of the accretion disk but I thought it looked too uniform so I went artistic there too and made up a formula I thought looked nice. 
+Accretion disks are hot. Fried-by-gamma-rays-if-you’re-in-the-same-solar-system-hot. My depiction of an accretion disk is where this project shifts from pure realism to a blend of realism and artistic interpretation. In my opinion, it is slightly less realistic but significantly more artistic to imagine an accretion disk not as blazing hot but at a “cool” 2,000–3,000 ºK where they have a nice warm glow. This is the same kind of ‘anemic’ accretion disk seen in *Interstellar*.  Originally, I followed Kip Thorne’s equation describing the flux along the radius of the accretion disk but I thought it looked too uniform so I went artistic there too and made up a formula I thought looked nice. 
 
 So how did I go from temperature to a RBG color value? First, I used the technique described by Dan Bruton to simulate what colors our eyes see from something radiating at a given temperature.[^bruton] Bruton uses Planck's law to find the wavelength of light radiated from a perfect black body at a given temperature, which is an useful approximation the color something is when it is glowing hot. It's just an approximation though, since nothing is a perfect black body. Then he convolves that with the International Comission on Illumination (CIE)'s 1931 color matching functions, which describe how humans perceive a certain wavelength of light. 
 
@@ -133,7 +133,7 @@ I hope you enjoy them as much as I do.
 
 ## References
 
-[^dneg-backgrounds]: DNEG. “Visualizing Interstellar’s Wormhole.” Supplementary material, including high-resolution longitude-latitude background maps. <https://www.dneg.com/news/visualizing-interstellars-wormhole>.
+[^dneg-backgrounds]: DNEG. “Visualizing Interstellar’s Wormhole.” High-resolution longitude-latitude maps. <https://www.dneg.com/news/visualizing-interstellars-wormhole>.
 
 [^dlmf]: Reinhardt, W. P., and P. L. Walker. “Jacobian Elliptic Functions.” NIST Digital Library of Mathematical Functions, Chapter 22. <https://dlmf.nist.gov/22>.
 
