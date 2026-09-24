@@ -5,6 +5,14 @@ document.querySelectorAll('.carousel-container').forEach((container) => {
   const previous = controls.querySelector('.carousel-previous');
   const next = controls.querySelector('.carousel-next');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const videos = container.querySelectorAll('video[data-src]');
+  let activeVideo = null;
+  let isVisible = false;
+  videos.forEach((video) => {
+    video.pause();
+    video.removeAttribute('autoplay');
+    video.removeAttribute('loop');
+  });
   if (slides.length < 2) return;
 
   function offsets() {
@@ -23,6 +31,33 @@ document.querySelectorAll('.carousel-container').forEach((container) => {
     const last = slides[slides.length - 1].getBoundingClientRect();
     previous.disabled = first.left + first.width / 2 - center >= -1;
     next.disabled = last.left + last.width / 2 - center <= 1;
+    updateVideo();
+  }
+
+  function updateVideo() {
+    const positions = offsets();
+    const index = positions.reduce((nearest, offset, candidate) =>
+      Math.abs(offset) < Math.abs(positions[nearest]) ? candidate : nearest, 0);
+    // Load the current and neighboring first frames before they become active.
+    for (let neighbor = Math.max(0, index - 1); neighbor <= Math.min(slides.length - 1, index + 1); neighbor++) {
+      const nearbyVideo = slides[neighbor].querySelector('video[data-src]');
+      if (nearbyVideo && !nearbyVideo.src) {
+        nearbyVideo.preload = 'auto';
+        nearbyVideo.src = nearbyVideo.dataset.src;
+        nearbyVideo.load();
+      }
+    }
+    const video = isVisible && !document.hidden ? slides[index].querySelector('video[data-src]') : null;
+    if (video === activeVideo) return;
+
+    if (activeVideo) {
+      activeVideo.pause();
+      activeVideo.currentTime = 0;
+    }
+    activeVideo = video;
+    if (video) {
+      video.play().catch(() => {});
+    }
   }
 
   let targetIndex = null;
@@ -75,21 +110,14 @@ document.querySelectorAll('.carousel-container').forEach((container) => {
   resizeObserver.observe(carousel);
   resizeObserver.observe(slides[0]);
   resizeObserver.observe(slides[slides.length - 1]);
+  if (videos.length) {
+    const videoObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      updateVideo();
+    }, { threshold: 0.01 });
+    videoObserver.observe(carousel);
+    document.addEventListener('visibilitychange', updateVideo);
+  }
   controls.hidden = false;
   update();
 });
-
-const lazyVideos = document.querySelectorAll('.carousel video[data-src]');
-if (lazyVideos.length) {
-  const videoObserver = new IntersectionObserver((entries) => {
-    entries.forEach(({ target: video, isIntersecting }) => {
-      if (isIntersecting) {
-        if (!video.src) video.src = video.dataset.src;
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    });
-  }, { threshold: 0.01 });
-  lazyVideos.forEach((video) => videoObserver.observe(video));
-}
