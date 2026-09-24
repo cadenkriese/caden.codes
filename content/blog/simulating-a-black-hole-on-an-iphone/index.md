@@ -1,6 +1,6 @@
 +++
 title = "Simulating a Black Hole on an iPhone"
-date = 2026-09-16T18:00:00
+date = 2026-09-23T18:00:00
 draft = false
 description = "Visualizing general relativity using Metal, C++ and Swift."
 [extra]
@@ -75,7 +75,7 @@ You can see the difference between our two versions. Mine has the very thin line
 
 {{ <body_image page path="higher_order_image_comparison.png" alt="A yellow-orange gas ring and an inner ring that fully curve around the black hole." caption="My render. Notice how the narrow inner ring forms a full circle in my version." height="40svh" /> }}
 
-You can also see that mine renders a sky in the background. I extended Müller and Frauendiener’s system to not just check for if the light hits a disk but also find it’s total deflection is before it escapes to infinity using elliptic integrals. That could be a post of its own, so for now, we will move on.
+You can also see that mine renders a sky in the background.[^dneg-backgrounds] I extended Müller and Frauendiener’s system to not just check for if the light hits a disk but also find it’s total deflection is before it escapes to infinity using elliptic integrals. That could be a post of its own, so for now, we will move on.
 
 ## Colors
 Accretion disks are hot. Fried-by-gamma-rays-if-you’re-in-the-same-solar-system-hot. My depiction of an accretion disk is where this project shifts from pure realism to a blend of realism and artistic interpretation. In my opinion, it is slightly less realistic but significantly more artistic to imagine an accretion disk not as blazing hot a “cool” 2,000–3,000 ºK. This is the same kind of ‘anemic’ accretion disk seen in Interstellar.  Originally, I followed Kip Thorne’s equation describing the flux along the radius of the accretion disk but I thought it looked too uniform so I went artistic there too and made up a formula I thought looked nice. 
@@ -132,6 +132,8 @@ I hope you enjoy them as much as I do.
 {% </carousel> %}
 
 ## References
+
+[^dneg-backgrounds]: DNEG. “Visualizing Interstellar’s Wormhole.” Supplementary material, including high-resolution longitude-latitude background maps. <https://www.dneg.com/news/visualizing-interstellars-wormhole>.
 
 [^dlmf]: Reinhardt, W. P., and P. L. Walker. “Jacobian Elliptic Functions.” NIST Digital Library of Mathematical Functions, Chapter 22. <https://dlmf.nist.gov/22>.
 
