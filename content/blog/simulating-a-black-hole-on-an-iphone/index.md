@@ -30,12 +30,12 @@ Confining each ray of light in a plane turns the 3D problem into a 2D one. They 
 
 In 2012, Müller and Frauendiener wrote that their code could run at 400 FPS (2.5ms per frame) at a resolution of 1,000 x 1,000 on a GTX 480. If it could run that well on 2012 hardware, I knew it could run on an iPhone today.
 
-I went to the University of Stuttgart website to download Müller and Frauendiener’s original source code linked with their paper, but only found broken links. I compared the broken download link for this project to other working download links from the website and, miraculously, I guessed the correct URL and downloaded their source code. It was a tremendous help for me to see how they implement the Jacobi elliptic functions with complex variables.
-
-Ultimately, though, my implementation of those functions ended up very different. I heavily relied on the NIST Digital Library of Mathematical Functions, especially Chapter 22, to implement my version.[^dlmf]
-
 ## Metal
-Much of the complexity of graphics programming comes from coaxing the CPU and GPU into communicating with each other, but for my renderer the handoff is clear and simple: the CPU says, “Please draw the black hole.” and the GPU replies, “Okay, here is the image of the black hole.” That’s about it. The code below is written in C++ using metal-cpp.
+To implement Müller and Frauendieners method on iPhone, I chose to use Metal and C++ with a SwiftUI frontend because I wanted everything to feel native and run fast. For Metal, most of the work came from memory management, synchronizing with the display and keeping track of three copies of the render state (triple-buffering). 
+
+Memory management required special attention throughout the renderer because metal-cpp uses manual retain and release for its types, whereas in Swift and Objective-C they are handled by automatic reference counting. I had to be mindful of that whenever data needed to cross between languages, which led me to manage render state in a dedicated type that is shared across C++, Objective-C++, Swift and Metal, ensuring they are on the same page. 
+
+The rendering pipeline itself was more straightforward. Much of the complexity of graphics programming comes from coaxing the CPU and GPU into communicating with each other, but for my renderer the handoff is clear and simple: the CPU says, “Please draw the black hole.” and the GPU replies, “Okay, here is the image of the black hole.” That’s about it. The code below is written in C++ using metal-cpp.
 
 ```C++
 // Please draw the black hole!
@@ -65,11 +65,11 @@ output.write(float4(color, 1.f), position);
 ```
 So, what does each section really do? I already touched on the geometry setup step, `makeRay`; it calculates the line of intersection between the plane of the accretion disk and the plane of the light ray.
 
-Most ray tracers work backwards, tracing light from the destination to the source. Mine is no exception. This is convenient because if you started from the source you would have no gauruntee that the light would reach the camera, but if you start from the camera, you can find which source it came from (or didn’t come from because it’s a black hole after all) and then decide what color it should be.
+To trace the ray, I start from the camera and then find the light source (or black hole in which case I shade the pixel black). Most ray tracers work backwards because it ensures each light ray reaches the camera. If you started from the light sources you would have no gauruntee that the light would reach the camera, but if you start from the camera, you can find which source it came from and then decide what color it should be.
 
-The traceRay function walks through Müller and Frauendiener’s method, working backwards with rays coming from the camera. However, my implementation differs in a few key ways. First, their code only checks if the light intersects the disk immediately, which isn’t fully correct. In this extreme gravitational environment, light can wrap around the black hole one or more times before hitting the disk after one or more orbit, so my code checks for intersections in the first orbit and a half. After that, there isn’t much difference. 
+The `traceRay` function walks through Müller and Frauendiener’s method, working backwards with rays coming from the camera. However, my implementation differs in a few key ways. First, their code only checks if the light intersects the disk immediately, which isn’t fully correct. In this extreme gravitational environment, light can wrap around the black hole one or more times before hitting the disk after one or more orbit, so my code checks for intersections in the first orbit and a half. After that, there isn’t much difference. 
 
-You can see the difference between our two versions. Mine has the very thin line along the horizon extend below the black hole as well, this represents light that 
+You can see the difference between our two versions. Mine has the very thin line along the horizon extend below the black hole as well. That very thin line is a tertiary or higher order image, meaning the light has wrapped around the black hole multiple times.
 
 {{ <body_image page path="muller_frauendiener_figure.png" alt="A wide gray outer ring on a black background that bends over a black hole and a narrow inner semi-circle-like curve that outlines the top of the black hole." caption="Müller and Frauendiener's render." height="40svh" /> }}
 
@@ -78,27 +78,29 @@ You can see the difference between our two versions. Mine has the very thin line
 You can also see that mine renders a sky in the background. I extended Müller and Frauendiener’s system to not just check for if the light hits a disk but also find it’s total deflection is before it escapes to infinity using elliptic integrals. That could be a post of its own, so for now, we will move on.
 
 ## Colors
-Accretion disks are hot. Fried-by-gamma-rays-if-you’re-in-the-same-solar-system-hot. My depiction of an accretion disk is where this project shifts from pure realism to a blend of realism and artistic interpretation. It is slightly less realistic but dramatically more artistic to imagine an accretion disk not as blazing hot as most really are but as a “cool” 2,000–3,000 ºK. This is the same kind of ‘anemic’ accretion disk seen in Interstellar. 
+Accretion disks are hot. Fried-by-gamma-rays-if-you’re-in-the-same-solar-system-hot. My depiction of an accretion disk is where this project shifts from pure realism to a blend of realism and artistic interpretation. In my opinion, it is slightly less realistic but significantly more artistic to imagine an accretion disk not as blazing hot a “cool” 2,000–3,000 ºK. This is the same kind of ‘anemic’ accretion disk seen in Interstellar.  Originally, I followed Kip Thorne’s equation describing the flux along the radius of the accretion disk but I thought it looked too uniform so I went artistic there too and made up a formula I thought looked nice. 
 
-Originally, I followed Kip Thorne’s equation for a quartic curve describing the flux along the radius of the accretion disk but I thought it looked too uniform so I went artistic there too and used a random formula I thought looked nice. For the colors themselves, I use the technique described by Dan Bruton to simulate what colors our eyes see from a black-body radiating at a given temperature.[^bruton]
+So how did I go from temperature to a RBG color value? First, I used the technique described by Dan Bruton to simulate what colors our eyes see from something radiating at a given temperature.[^bruton] Bruton uses Planck's law to find the wavelength of light radiated from a perfect black body at a given temperature, which is an useful approximation the color something is when it is glowing hot. It's just an approximation though, since nothing is a perfect black body. Then he convolves that with the International Comission on Illumination (CIE)'s 1931 color matching functions, which describe how humans perceive a certain wavelength of light. 
 
-However, I got inspired by interstellar to try to simulate what a Kodak film camera would see, instead of our eyes, which is the look I settled on. To do that, I had to hand-trace Kodak’s published spectral sensitivity curves for an old film stock, the EXR 50D Film / 5245. Here is a comparison between what the human eye sees and the Kodak film:
+However, I got inspired by *Interstellar*, so instead of using the CIE colors to simulate the colors that humans would see, I hand traced curves from Kodak to simulate to try to simulate what colors a camera with Kodak film would see. The specific spectral sensitivity curves are for the EXR 50D Film / 5245.[^kodak]
+
+Here is a comparison between what the human eye sees and the Kodak film:
 
 {{ <body_image page path="CIE_LUT.png" alt="A color gradient starting with a deep red that gradually becomes a white and then a blue." caption="The colors our eyes would see from something glowing hot. 1,000–10,000 ºK left to right."/> }}
 
 {{ <body_image page path="Kodak_LUT.png" alt="A color gradient starting with a lighter orange that slowly becomes a white and then an incredibly pale blue." caption="The colors that would show up on Kodak EXR 50D Film / 5245. 1,000–10,000 ºK left to right." /> }}
 
-As an aside, the texture of the accretion disk, like everything that looks cool in computer graphics, is just layered noise textures. You can see it start to stretch as the image we see begins to bend over the top of the horizon:
+As an aside, the texture of the accretion disk, like everything that looks cool in computer graphics, is just layered noise textures. You can see it start to stretch as the image we see begins to bend over the top of the horizon.
 
 {{ <body_image page path="noise_texture_stretching.webp" alt="Close-up of layered noise stretching across the glowing accretion disk as its image bends around the black hole." prominent={true} /> }}
 
 ## Bloom
-Bloom makes the accretion disk look like it’s glowing. In a camera this happens because of imperfections in the lenses allowing light to bounce around (instead of just bending), the light bounces and spreads out creating a charactaristic glare, veil or lens flare. This can be computed analytically by tracing light paths in simulated camera optics, but I didn’t go that far, yet. Maybe in the future!
+Bloom makes the accretion disk look like it’s glowing. In a camera this happens because of imperfections in the lenses allowing light to bounce around and spread out throughout the lens, creating a charactaristic glare, veil or lens flare. This can be computed analytically by tracing light paths in simulated camera optics, but I didn’t go that far, yet. Maybe in the future!
 
-For now, I relied on a pretty standard bloom algorithm by Jorge Jimenez that he made while working at Activision.[^jimenez]
+For now, I relied on a pretty standard bloom algorithm by Jorge Jimenez that he made while working at Activision.[^jimenez] It fakes the look of bloom by making a bunch of lower resolution copies of the image and then adding them back on top of the initial image, which has the effect of slightly blurring it. 
 
-## Debugging
-The Xcode engineers really outdid themselves with the Metal debugger. It’s truly phenomenal. I used it to debug countless floating point errors, performance regressions and to just generally understand the bottlenecks of my code.
+## Performance
+I *love* the Metal debugger in Xcode. It is phenomenal. I used it to debug countless floating point errors, performance regressions and to just generally understand the bottlenecks of my code. I was so impressed when I first captured a frame and saw a line-by-line performance breakdown of my shader, as seen in the first image below.
 
 {% <carousel label="Xcode Metal debugger screenshots" max_height="70svh"> %}
 <li>
@@ -109,10 +111,25 @@ The Xcode engineers really outdid themselves with the Metal debugger. It’s tru
 </li>
 {% </carousel> %}
 
-In the second photo you can see that the `calculateLensing` phase of the shader took 2.31ms while the window was at a resolution of 3110x1952, which I think is pretty fast!
+In the second photo you can see that the `calculateLensing` phase of the shader took 2.31ms while the window was at a resolution of 3110x1952, which I think is pretty fast! The bloom and tonemapping only add 1–2ms, which means I comfortably sit within the 8.3ms budget to render at 120 frames per second.
+
+On iPhone, I render at full ~2K resolution as of now. It looks great and frames only take about 7ms on my 15 Pro Max, but the margin is narrower than I'd like (and it's very power hungry) so I will probably adjust the resolution I use before release to find a better balance between performance and battery life.
 
 ## What’s next?
-I will release Gravitation on the app store soon! After that, for a Mac version I will add an option to export videos so people can make their own physically accurate animated wallpapers or footage to use for whatever. I might also explore more integration with the SwiftUI animation system to power keyframes or camera paths. There is plenty more that can be done to improve the physical accuracy, a higher resolution background, star rendering, motion blur, the doppler effect, etc. They’re all very exciting prospects, but I’m not sure which ones I will decide to implement. Only time will tell!
+I will release Gravitation on the app store soon! After that, for a Mac version I will add an option to export videos so people can make their own physically accurate animated wallpapers or footage to use for whatever. I might also explore more integration with the SwiftUI animation system to power keyframes or camera paths. 
+
+For the renderer, there is plenty more that can be done to improve the physical accuracy: a higher resolution background, rendering point stars, motion blur, the doppler effect, etc. They’re all very exciting prospects, but I’m not sure which ones I will decide to implement.
+
+For now, here are some of my favorite clips from the renderer. The third one is a shot of the camera looking away from the black hole and falling straight in right up to the edge of the horizon.
+
+I hope you enjoy them as much as I do.
+
+{% <carousel label="Gravitation videos" class_name="video-carousel"> %}
+<li><figure class="body-video"><video autoplay muted loop playsinline preload="none" width="3162" height="1976" data-src="/videos/gravitation/standard-view.webm" aria-label="Standard view of the black hole simulation"></video></figure></li>
+<li><figure class="body-video"><video autoplay muted loop playsinline preload="none" width="3108" height="1942" data-src="/videos/gravitation/closeup.webm" aria-label="Close-up of the black hole simulation"></video></figure></li>
+<li><figure class="body-video"><video autoplay muted loop playsinline preload="none" width="3162" height="1976" data-src="/videos/gravitation/falling-in.webm" aria-label="Camera falling into the black hole"></video></figure></li>
+<li><figure class="body-video"><video autoplay muted loop playsinline preload="none" width="3098" height="2000" data-src="/videos/gravitation/galaxy.webm" aria-label="Galaxy distorted by the black hole"></video></figure></li>
+{% </carousel> %}
 
 ## References
 
@@ -123,5 +140,7 @@ I will release Gravitation on the app store soon! After that, for a Mac version 
 [^james]: James, Oliver, Eugenie von Tunzelmann, Paul Franklin, and Kip S. Thorne. “Gravitational Lensing by Spinning Black Holes in Astrophysics, and in the Movie Interstellar.” <https://doi.org/10.48550/arXiv.1502.03808>.
 
 [^bruton]: Bruton, Dan. “Color Science.” <http://www.midnightkite.com/color.html>.
+
+[^kodak]: Eastman Kodak Company. “EASTMAN EXR 50D Color Negative Film 5245™ / 7245™.” KODAK Publication No. H-1-5245, March 1999. <https://125px.com/docs/motionpicture/kodak/5245-1999.pdf>.
 
 [^jimenez]: Jimenez, Jorge. “Next Generation Post Processing Effects.” <https://www.iryoku.com/next-generation-post-processing-in-call-of-duty-advanced-warfare/>.

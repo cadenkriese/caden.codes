@@ -78,3 +78,18 @@ document.querySelectorAll('.carousel-container').forEach((container) => {
   controls.hidden = false;
   update();
 });
+
+const lazyVideos = document.querySelectorAll('.carousel video[data-src]');
+if (lazyVideos.length) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target: video, isIntersecting }) => {
+      if (isIntersecting) {
+        if (!video.src) video.src = video.dataset.src;
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.01 });
+  lazyVideos.forEach((video) => videoObserver.observe(video));
+}

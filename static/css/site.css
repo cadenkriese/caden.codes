@@ -562,12 +562,24 @@ article {
   }
   
   img,
-  figure > svg {
+  figure > svg,
+  .ytplayer {
     display: block;
     width: 100%;
     height: auto;
     border: 1px solid var(--line);
     border-radius: 12px;
+  }
+
+  .ytplayer {
+    grid-column: 1 / -1;
+    justify-self: start;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 60vh;
+    width: auto;
+    aspect-ratio: 16 / 9;
   }
 
   .body-image {
@@ -604,6 +616,7 @@ article {
 
     img {
       width: 100%;
+      border: 0;
       border-radius: 0;
 
       @media (width > 1920px) {
@@ -687,12 +700,31 @@ article {
       background: none;
     }
 
+    .body-video {
+      width: fit-content;
+      margin: 0;
+    }
+
+    .body-video video {
+      display: block;
+      width: 90vw;
+      height: auto;
+      aspect-ratio: 8 / 5;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
     figcaption {
       margin-inline: 1rem;
       font-size: .8em;
       opacity: .75;
       text-align: center;
     }
+  }
+
+  .video-carousel .carousel {
+    --carousel-gap: 1vw;
   }
 
   .carousel-controls {
@@ -850,6 +882,7 @@ body > footer {
   .hero p { font-size: 1.06rem; }
   .section { padding-block: 3.25rem; }
   article { width: min(100% - 28px, 760px); display: block; }
+  article img { border: 0; }
   article:has(> header > picture) {
     width: 100%;
     display: grid;
