@@ -598,6 +598,11 @@ article {
     }
   }
 
+  video {
+    max-width: min(100vw, 1920px);
+    height: auto;
+  }
+
   @media (max-width: 1150px) {
     > img,
     > figure img,
